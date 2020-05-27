@@ -32,6 +32,8 @@ formalParameters
 type
     : 'int'
     | 'double'
+    | 'string'
+    | 'bool'
     | 'void'
     | ID
     ;
@@ -51,19 +53,59 @@ statement
     ;
 
 expression
-    : ID
-    | INT
-    | '(' expression ')'
+    : ID '(' expressionList? ')'    # Call
+    | literal                       # Liter
+    | ID                            # Var
+    | '(' expression ')'            # Parens
     ;
 
-ID  : LETTER (LETTER | [0-9])*
+expressionList
+    : expression (',' expression)*
     ;
 
 fragment LETTER
     : [a-zA-Z]
     ;
 
-INT : [0-9]+
+literal
+    : BOOL
+    | INT
+    | DOUBLE
+    | STRING
+    | 'null'
+    ;
+
+INT : '-'? INTEGER
+    ;
+
+fragment INTEGER
+    : '0' | [1-9] [0-9]*
+    ;
+
+DOUBLE
+    : INT '.' [0-9]+
+    ;
+
+BOOL : 'true' | 'false'
+    ;
+
+STRING
+    : '"' (ESC | ~["\\])* '"'
+    ;
+
+ID  : LETTER (LETTER | [0-9])*
+    ;
+
+fragment ESC
+    : '\\' (["\\/bfnrt] | UNICODE)
+    ;
+
+fragment UNICODE
+    : 'u' HEX HEX HEX HEX
+    ;
+
+fragment HEX
+    : [0-9a-fA-F]
     ;
 
 WS  : [ \t\r\n] -> skip;

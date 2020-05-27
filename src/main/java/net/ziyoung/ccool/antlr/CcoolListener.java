@@ -1,4 +1,4 @@
-// Generated from /src/main/java/net/ziyoung/ccool/antlr/Ccool.g4 by ANTLR 4.8
+// Generated from Ccool.g4 by ANTLR 4.8
 package net.ziyoung.ccool.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -108,13 +108,71 @@ public interface CcoolListener extends ParseTreeListener {
 	 */
 	void exitStatement(CcoolParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CcoolParser#expression}.
+	 * Enter a parse tree produced by the {@code Call}
+	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(CcoolParser.ExpressionContext ctx);
+	void enterCall(CcoolParser.CallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CcoolParser#expression}.
+	 * Exit a parse tree produced by the {@code Call}
+	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(CcoolParser.ExpressionContext ctx);
+	void exitCall(CcoolParser.CallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Liter}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiter(CcoolParser.LiterContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Liter}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiter(CcoolParser.LiterContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar(CcoolParser.VarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar(CcoolParser.VarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterParens(CcoolParser.ParensContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitParens(CcoolParser.ParensContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CcoolParser#expressionList}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionList(CcoolParser.ExpressionListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CcoolParser#expressionList}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionList(CcoolParser.ExpressionListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CcoolParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteral(CcoolParser.LiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CcoolParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteral(CcoolParser.LiteralContext ctx);
 }

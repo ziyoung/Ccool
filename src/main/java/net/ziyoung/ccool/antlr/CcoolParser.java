@@ -1,4 +1,4 @@
-// Generated from /src/main/java/net/ziyoung/ccool/antlr/Ccool.g4 by ANTLR 4.8
+// Generated from Ccool.g4 by ANTLR 4.8
 package net.ziyoung.ccool.antlr;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -18,17 +18,18 @@ public class CcoolParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, ID=13, INT=14, WS=15, SINGLE_LINE_COMMENT=16, 
-		MULTI_LINE_COMMENT=17;
+		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, INT=16, DOUBLE=17, 
+		BOOL=18, STRING=19, ID=20, WS=21, SINGLE_LINE_COMMENT=22, MULTI_LINE_COMMENT=23;
 	public static final int
 		RULE_compilationUnit = 0, RULE_classDefinition = 1, RULE_superClass = 2, 
 		RULE_classMember = 3, RULE_methodDeclaration = 4, RULE_formalParameters = 5, 
 		RULE_type = 6, RULE_block = 7, RULE_varDeclaration = 8, RULE_statement = 9, 
-		RULE_expression = 10;
+		RULE_expression = 10, RULE_expressionList = 11, RULE_literal = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"compilationUnit", "classDefinition", "superClass", "classMember", "methodDeclaration", 
-			"formalParameters", "type", "block", "varDeclaration", "statement", "expression"
+			"formalParameters", "type", "block", "varDeclaration", "statement", "expression", 
+			"expressionList", "literal"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -36,14 +37,15 @@ public class CcoolParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'class'", "'{'", "'}'", "'extend'", "'='", "';'", "'('", "')'", 
-			"','", "'int'", "'double'", "'void'"
+			"','", "'int'", "'double'", "'string'", "'bool'", "'void'", "'null'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, "ID", "INT", "WS", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT"
+			null, null, null, null, "INT", "DOUBLE", "BOOL", "STRING", "ID", "WS", 
+			"SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -129,11 +131,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitCompilationUnit(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitCompilationUnit(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final CompilationUnitContext compilationUnit() throws RecognitionException {
@@ -143,39 +140,39 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(25); 
+			setState(29); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(25);
+				setState(29);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 				case 1:
 					{
-					setState(22);
+					setState(26);
 					classDefinition();
 					}
 					break;
 				case 2:
 					{
-					setState(23);
+					setState(27);
 					varDeclaration();
 					}
 					break;
 				case 3:
 					{
-					setState(24);
+					setState(28);
 					methodDeclaration();
 					}
 					break;
 				}
 				}
-				setState(27); 
+				setState(31); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0) );
-			setState(29);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0) );
+			setState(33);
 			match(EOF);
 			}
 		}
@@ -213,11 +210,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitClassDefinition(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitClassDefinition(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassDefinitionContext classDefinition() throws RecognitionException {
@@ -227,37 +219,37 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(31);
+			setState(35);
 			match(T__0);
-			setState(32);
+			setState(36);
 			match(ID);
-			setState(34);
+			setState(38);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__3) {
 				{
-				setState(33);
+				setState(37);
 				superClass();
 				}
 			}
 
-			setState(36);
+			setState(40);
 			match(T__1);
-			setState(38); 
+			setState(42); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(37);
+				setState(41);
 				classMember();
 				}
 				}
-				setState(40); 
+				setState(44); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0) );
-			setState(42);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0) );
+			setState(46);
 			match(T__2);
 			}
 		}
@@ -286,11 +278,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitSuperClass(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitSuperClass(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final SuperClassContext superClass() throws RecognitionException {
@@ -299,9 +286,9 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(48);
 			match(T__3);
-			setState(45);
+			setState(49);
 			match(ID);
 			}
 		}
@@ -339,11 +326,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitClassMember(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitClassMember(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final ClassMemberContext classMember() throws RecognitionException {
@@ -351,36 +333,36 @@ public class CcoolParser extends Parser {
 		enterRule(_localctx, 6, RULE_classMember);
 		int _la;
 		try {
-			setState(56);
+			setState(60);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(47);
-				type();
-				setState(48);
-				match(ID);
 				setState(51);
+				type();
+				setState(52);
+				match(ID);
+				setState(55);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==T__4) {
 					{
-					setState(49);
+					setState(53);
 					match(T__4);
-					setState(50);
+					setState(54);
 					expression();
 					}
 				}
 
-				setState(53);
+				setState(57);
 				match(T__5);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(55);
+				setState(59);
 				methodDeclaration();
 				}
 				break;
@@ -420,11 +402,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitMethodDeclaration(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitMethodDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final MethodDeclarationContext methodDeclaration() throws RecognitionException {
@@ -434,25 +411,25 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(58);
-			type();
-			setState(59);
-			match(ID);
-			setState(60);
-			match(T__6);
 			setState(62);
+			type();
+			setState(63);
+			match(ID);
+			setState(64);
+			match(T__6);
+			setState(66);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0)) {
 				{
-				setState(61);
+				setState(65);
 				formalParameters();
 				}
 			}
 
-			setState(64);
+			setState(68);
 			match(T__7);
-			setState(65);
+			setState(69);
 			block();
 			}
 		}
@@ -490,11 +467,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitFormalParameters(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitFormalParameters(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final FormalParametersContext formalParameters() throws RecognitionException {
@@ -504,25 +476,25 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67);
+			setState(71);
 			type();
-			setState(68);
+			setState(72);
 			match(ID);
-			setState(75);
+			setState(79);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__8) {
 				{
 				{
-				setState(69);
+				setState(73);
 				match(T__8);
-				setState(70);
+				setState(74);
 				type();
-				setState(71);
+				setState(75);
 				match(ID);
 				}
 				}
-				setState(77);
+				setState(81);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -553,11 +525,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitType(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitType(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
@@ -567,9 +534,9 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(78);
+			setState(82);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -609,11 +576,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitBlock(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitBlock(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -623,23 +585,23 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
-			match(T__1);
 			setState(84);
+			match(T__1);
+			setState(88);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__6) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID) | (1L << INT))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__6) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << T__14) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << STRING) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(81);
+				setState(85);
 				statement();
 				}
 				}
-				setState(86);
+				setState(90);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(87);
+			setState(91);
 			match(T__2);
 			}
 		}
@@ -674,11 +636,6 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitVarDeclaration(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitVarDeclaration(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final VarDeclarationContext varDeclaration() throws RecognitionException {
@@ -688,23 +645,23 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(89);
-			type();
-			setState(90);
-			match(ID);
 			setState(93);
+			type();
+			setState(94);
+			match(ID);
+			setState(97);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__4) {
 				{
-				setState(91);
+				setState(95);
 				match(T__4);
-				setState(92);
+				setState(96);
 				expression();
 				}
 			}
 
-			setState(95);
+			setState(99);
 			match(T__5);
 			}
 		}
@@ -741,40 +698,35 @@ public class CcoolParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitStatement(this);
 		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitStatement(this);
-			else return visitor.visitChildren(this);
-		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_statement);
 		try {
-			setState(102);
+			setState(106);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(97);
+				setState(101);
 				block();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(98);
+				setState(102);
 				varDeclaration();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(99);
+				setState(103);
 				expression();
-				setState(100);
+				setState(104);
 				match(T__5);
 				}
 				break;
@@ -792,64 +744,238 @@ public class CcoolParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
-		public TerminalNode INT() { return getToken(CcoolParser.INT, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
+	 
+		public ExpressionContext() { }
+		public void copyFrom(ExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class CallContext extends ExpressionContext {
+		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
+		public ExpressionListContext expressionList() {
+			return getRuleContext(ExpressionListContext.class,0);
+		}
+		public CallContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterExpression(this);
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterCall(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitExpression(this);
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitCall(this);
+		}
+	}
+	public static class LiterContext extends ExpressionContext {
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
+		}
+		public LiterContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterLiter(this);
 		}
 		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitExpression(this);
-			else return visitor.visitChildren(this);
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitLiter(this);
+		}
+	}
+	public static class VarContext extends ExpressionContext {
+		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
+		public VarContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterVar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitVar(this);
+		}
+	}
+	public static class ParensContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public ParensContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterParens(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitParens(this);
 		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_expression);
+		int _la;
 		try {
-			setState(110);
+			setState(120);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case ID:
+			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			case 1:
+				_localctx = new CallContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(104);
-				match(ID);
-				}
-				break;
-			case INT:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(105);
-				match(INT);
-				}
-				break;
-			case T__6:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(106);
-				match(T__6);
-				setState(107);
-				expression();
 				setState(108);
+				match(ID);
+				setState(109);
+				match(T__6);
+				setState(111);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << T__14) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << STRING) | (1L << ID))) != 0)) {
+					{
+					setState(110);
+					expressionList();
+					}
+				}
+
+				setState(113);
 				match(T__7);
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
+			case 2:
+				_localctx = new LiterContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(114);
+				literal();
+				}
+				break;
+			case 3:
+				_localctx = new VarContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(115);
+				match(ID);
+				}
+				break;
+			case 4:
+				_localctx = new ParensContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(116);
+				match(T__6);
+				setState(117);
+				expression();
+				setState(118);
+				match(T__7);
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExpressionListContext extends ParserRuleContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public ExpressionListContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expressionList; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterExpressionList(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitExpressionList(this);
+		}
+	}
+
+	public final ExpressionListContext expressionList() throws RecognitionException {
+		ExpressionListContext _localctx = new ExpressionListContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_expressionList);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(122);
+			expression();
+			setState(127);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__8) {
+				{
+				{
+				setState(123);
+				match(T__8);
+				setState(124);
+				expression();
+				}
+				}
+				setState(129);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class LiteralContext extends ParserRuleContext {
+		public TerminalNode BOOL() { return getToken(CcoolParser.BOOL, 0); }
+		public TerminalNode INT() { return getToken(CcoolParser.INT, 0); }
+		public TerminalNode DOUBLE() { return getToken(CcoolParser.DOUBLE, 0); }
+		public TerminalNode STRING() { return getToken(CcoolParser.STRING, 0); }
+		public LiteralContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_literal; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitLiteral(this);
+		}
+	}
+
+	public final LiteralContext literal() throws RecognitionException {
+		LiteralContext _localctx = new LiteralContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_literal);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(130);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__14) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << STRING))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -864,34 +990,40 @@ public class CcoolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\23s\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\3\2\3\2\3\2\6\2\34\n\2\r\2\16\2\35\3\2\3\2\3\3\3\3\3\3\5\3%\n\3"+
-		"\3\3\3\3\6\3)\n\3\r\3\16\3*\3\3\3\3\3\4\3\4\3\4\3\5\3\5\3\5\3\5\5\5\66"+
-		"\n\5\3\5\3\5\3\5\5\5;\n\5\3\6\3\6\3\6\3\6\5\6A\n\6\3\6\3\6\3\6\3\7\3\7"+
-		"\3\7\3\7\3\7\3\7\7\7L\n\7\f\7\16\7O\13\7\3\b\3\b\3\t\3\t\7\tU\n\t\f\t"+
-		"\16\tX\13\t\3\t\3\t\3\n\3\n\3\n\3\n\5\n`\n\n\3\n\3\n\3\13\3\13\3\13\3"+
-		"\13\3\13\5\13i\n\13\3\f\3\f\3\f\3\f\3\f\3\f\5\fq\n\f\3\f\2\2\r\2\4\6\b"+
-		"\n\f\16\20\22\24\26\2\3\3\2\f\17\2v\2\33\3\2\2\2\4!\3\2\2\2\6.\3\2\2\2"+
-		"\b:\3\2\2\2\n<\3\2\2\2\fE\3\2\2\2\16P\3\2\2\2\20R\3\2\2\2\22[\3\2\2\2"+
-		"\24h\3\2\2\2\26p\3\2\2\2\30\34\5\4\3\2\31\34\5\22\n\2\32\34\5\n\6\2\33"+
-		"\30\3\2\2\2\33\31\3\2\2\2\33\32\3\2\2\2\34\35\3\2\2\2\35\33\3\2\2\2\35"+
-		"\36\3\2\2\2\36\37\3\2\2\2\37 \7\2\2\3 \3\3\2\2\2!\"\7\3\2\2\"$\7\17\2"+
-		"\2#%\5\6\4\2$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&(\7\4\2\2\')\5\b\5\2(\'\3\2"+
-		"\2\2)*\3\2\2\2*(\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\5\2\2-\5\3\2\2\2./\7"+
-		"\6\2\2/\60\7\17\2\2\60\7\3\2\2\2\61\62\5\16\b\2\62\65\7\17\2\2\63\64\7"+
-		"\7\2\2\64\66\5\26\f\2\65\63\3\2\2\2\65\66\3\2\2\2\66\67\3\2\2\2\678\7"+
-		"\b\2\28;\3\2\2\29;\5\n\6\2:\61\3\2\2\2:9\3\2\2\2;\t\3\2\2\2<=\5\16\b\2"+
-		"=>\7\17\2\2>@\7\t\2\2?A\5\f\7\2@?\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\7\n\2"+
-		"\2CD\5\20\t\2D\13\3\2\2\2EF\5\16\b\2FM\7\17\2\2GH\7\13\2\2HI\5\16\b\2"+
-		"IJ\7\17\2\2JL\3\2\2\2KG\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2N\r\3\2\2"+
-		"\2OM\3\2\2\2PQ\t\2\2\2Q\17\3\2\2\2RV\7\4\2\2SU\5\24\13\2TS\3\2\2\2UX\3"+
-		"\2\2\2VT\3\2\2\2VW\3\2\2\2WY\3\2\2\2XV\3\2\2\2YZ\7\5\2\2Z\21\3\2\2\2["+
-		"\\\5\16\b\2\\_\7\17\2\2]^\7\7\2\2^`\5\26\f\2_]\3\2\2\2_`\3\2\2\2`a\3\2"+
-		"\2\2ab\7\b\2\2b\23\3\2\2\2ci\5\20\t\2di\5\22\n\2ef\5\26\f\2fg\7\b\2\2"+
-		"gi\3\2\2\2hc\3\2\2\2hd\3\2\2\2he\3\2\2\2i\25\3\2\2\2jq\7\17\2\2kq\7\20"+
-		"\2\2lm\7\t\2\2mn\5\26\f\2no\7\n\2\2oq\3\2\2\2pj\3\2\2\2pk\3\2\2\2pl\3"+
-		"\2\2\2q\27\3\2\2\2\16\33\35$*\65:@MV_hp";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31\u0087\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\6\2 \n\2\r\2\16\2!\3\2\3\2"+
+		"\3\3\3\3\3\3\5\3)\n\3\3\3\3\3\6\3-\n\3\r\3\16\3.\3\3\3\3\3\4\3\4\3\4\3"+
+		"\5\3\5\3\5\3\5\5\5:\n\5\3\5\3\5\3\5\5\5?\n\5\3\6\3\6\3\6\3\6\5\6E\n\6"+
+		"\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\7\7P\n\7\f\7\16\7S\13\7\3\b\3\b\3"+
+		"\t\3\t\7\tY\n\t\f\t\16\t\\\13\t\3\t\3\t\3\n\3\n\3\n\3\n\5\nd\n\n\3\n\3"+
+		"\n\3\13\3\13\3\13\3\13\3\13\5\13m\n\13\3\f\3\f\3\f\5\fr\n\f\3\f\3\f\3"+
+		"\f\3\f\3\f\3\f\3\f\5\f{\n\f\3\r\3\r\3\r\7\r\u0080\n\r\f\r\16\r\u0083\13"+
+		"\r\3\16\3\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\4\2\f\20"+
+		"\26\26\3\2\21\25\2\u008b\2\37\3\2\2\2\4%\3\2\2\2\6\62\3\2\2\2\b>\3\2\2"+
+		"\2\n@\3\2\2\2\fI\3\2\2\2\16T\3\2\2\2\20V\3\2\2\2\22_\3\2\2\2\24l\3\2\2"+
+		"\2\26z\3\2\2\2\30|\3\2\2\2\32\u0084\3\2\2\2\34 \5\4\3\2\35 \5\22\n\2\36"+
+		" \5\n\6\2\37\34\3\2\2\2\37\35\3\2\2\2\37\36\3\2\2\2 !\3\2\2\2!\37\3\2"+
+		"\2\2!\"\3\2\2\2\"#\3\2\2\2#$\7\2\2\3$\3\3\2\2\2%&\7\3\2\2&(\7\26\2\2\'"+
+		")\5\6\4\2(\'\3\2\2\2()\3\2\2\2)*\3\2\2\2*,\7\4\2\2+-\5\b\5\2,+\3\2\2\2"+
+		"-.\3\2\2\2.,\3\2\2\2./\3\2\2\2/\60\3\2\2\2\60\61\7\5\2\2\61\5\3\2\2\2"+
+		"\62\63\7\6\2\2\63\64\7\26\2\2\64\7\3\2\2\2\65\66\5\16\b\2\669\7\26\2\2"+
+		"\678\7\7\2\28:\5\26\f\29\67\3\2\2\29:\3\2\2\2:;\3\2\2\2;<\7\b\2\2<?\3"+
+		"\2\2\2=?\5\n\6\2>\65\3\2\2\2>=\3\2\2\2?\t\3\2\2\2@A\5\16\b\2AB\7\26\2"+
+		"\2BD\7\t\2\2CE\5\f\7\2DC\3\2\2\2DE\3\2\2\2EF\3\2\2\2FG\7\n\2\2GH\5\20"+
+		"\t\2H\13\3\2\2\2IJ\5\16\b\2JQ\7\26\2\2KL\7\13\2\2LM\5\16\b\2MN\7\26\2"+
+		"\2NP\3\2\2\2OK\3\2\2\2PS\3\2\2\2QO\3\2\2\2QR\3\2\2\2R\r\3\2\2\2SQ\3\2"+
+		"\2\2TU\t\2\2\2U\17\3\2\2\2VZ\7\4\2\2WY\5\24\13\2XW\3\2\2\2Y\\\3\2\2\2"+
+		"ZX\3\2\2\2Z[\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\5\2\2^\21\3\2\2\2_`\5\16"+
+		"\b\2`c\7\26\2\2ab\7\7\2\2bd\5\26\f\2ca\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\7"+
+		"\b\2\2f\23\3\2\2\2gm\5\20\t\2hm\5\22\n\2ij\5\26\f\2jk\7\b\2\2km\3\2\2"+
+		"\2lg\3\2\2\2lh\3\2\2\2li\3\2\2\2m\25\3\2\2\2no\7\26\2\2oq\7\t\2\2pr\5"+
+		"\30\r\2qp\3\2\2\2qr\3\2\2\2rs\3\2\2\2s{\7\n\2\2t{\5\32\16\2u{\7\26\2\2"+
+		"vw\7\t\2\2wx\5\26\f\2xy\7\n\2\2y{\3\2\2\2zn\3\2\2\2zt\3\2\2\2zu\3\2\2"+
+		"\2zv\3\2\2\2{\27\3\2\2\2|\u0081\5\26\f\2}~\7\13\2\2~\u0080\5\26\f\2\177"+
+		"}\3\2\2\2\u0080\u0083\3\2\2\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082"+
+		"\31\3\2\2\2\u0083\u0081\3\2\2\2\u0084\u0085\t\3\2\2\u0085\33\3\2\2\2\20"+
+		"\37!(.9>DQZclqz\u0081";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
