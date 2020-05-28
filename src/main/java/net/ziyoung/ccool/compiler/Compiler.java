@@ -2,6 +2,9 @@ package net.ziyoung.ccool.compiler;
 
 import net.ziyoung.ccool.antlr.CcoolLexer;
 import net.ziyoung.ccool.antlr.CcoolParser;
+import net.ziyoung.ccool.ast.CompilationUnit;
+import net.ziyoung.ccool.parser.CcoolLangParser;
+import net.ziyoung.ccool.parser.ParseErrorListener;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -10,28 +13,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compiler {
+    private CcoolLangParser parser;
     private final List<CompileError> errors = new ArrayList<>();
     private final String fileName;
-    private ParseErrorListener errorListener;
 
     public Compiler(String fileName) {
         this.fileName = fileName;
     }
 
-    public ParseTree compile() throws IOException {
-        CharStream charStream = CharStreams.fromFileName(fileName);
-        CcoolLexer lexer = new CcoolLexer(charStream);
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        CcoolParser parser = new CcoolParser(tokenStream);
-        errorListener = new ParseErrorListener();
-        parser.addErrorListener(errorListener);
-        return parser.compilationUnit();
+    public CompilationUnit compile() throws IOException {
+        parser = new CcoolLangParser(fileName);
+        return parser.parse();
     }
 
-    public boolean isFailed() {
-        return errorListener.isFailed();
+    public boolean parseSuccess() {
+        return parser.isSuccess();
     }
-
+    
     public boolean isPassed() {
         return errors.size() == 0;
     }

@@ -1,5 +1,7 @@
 package net.ziyoung.ccool.ast;
 
+import net.ziyoung.ccool.type.Type;
+
 public class Symbol {
     private final String name;
     private Type type;

@@ -1,5 +1,6 @@
 package net.ziyoung.ccool.ast;
 
+import net.ziyoung.ccool.type.Type;
 import org.antlr.v4.runtime.Token;
 
 import java.util.*;

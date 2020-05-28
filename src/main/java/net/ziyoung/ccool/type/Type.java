@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.type;
 
 public interface Type {
     public String getName();

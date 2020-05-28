@@ -5,7 +5,7 @@ grammar Ccool;
 // All features in Cool need to be implemented.
 
 compilationUnit
-    : (classDefinition | varDeclaration | methodDeclaration)+ EOF
+    : (classDefinition | varDeclaration | methodDeclaration)+
     ;
 
 classDefinition
@@ -72,7 +72,7 @@ literal
     | INT
     | DOUBLE
     | STRING
-    | 'null'
+    | NULL
     ;
 
 INT : '-'? INTEGER
@@ -87,6 +87,9 @@ DOUBLE
     ;
 
 BOOL : 'true' | 'false'
+    ;
+
+NULL : 'null'
     ;
 
 STRING
