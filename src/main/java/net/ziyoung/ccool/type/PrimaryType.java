@@ -1,4 +1,7 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.type;
+
+import net.ziyoung.ccool.ast.Symbol;
+import net.ziyoung.ccool.type.Type;
 
 public class PrimaryType extends Symbol implements Type {
     private final int typeIndex;

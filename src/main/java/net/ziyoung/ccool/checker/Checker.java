@@ -2,7 +2,7 @@ package net.ziyoung.ccool.checker;
 
 import net.ziyoung.ccool.ast.FunctionSymbolScope;
 import net.ziyoung.ccool.ast.Symbol;
-import net.ziyoung.ccool.ast.SymbolTable;
+import net.ziyoung.ccool.type.Types;
 import net.ziyoung.ccool.compiler.Compiler;
 
 public class Checker {
@@ -22,7 +22,7 @@ public class Checker {
             return;
         }
         FunctionSymbolScope functionSymbol = (FunctionSymbolScope) symbol;
-        if (!SymbolTable.isIntType(functionSymbol.getType())) {
+        if (!Types.isIntType(functionSymbol.getType())) {
             compiler.error(functionSymbol.getToken(), "return type of main is not int.");
         }
     }

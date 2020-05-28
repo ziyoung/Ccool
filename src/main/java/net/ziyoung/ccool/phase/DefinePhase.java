@@ -4,6 +4,8 @@ import net.ziyoung.ccool.antlr.CcoolBaseListener;
 import net.ziyoung.ccool.antlr.CcoolParser;
 import net.ziyoung.ccool.ast.*;
 import net.ziyoung.ccool.compiler.Compiler;
+import net.ziyoung.ccool.type.Types;
+import net.ziyoung.ccool.type.Type;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -29,7 +31,7 @@ public class DefinePhase extends CcoolBaseListener {
 
     private void defineVar(CcoolParser.TypeContext typeContext, String name) {
         String typeText = typeContext.getText();
-        Type type = SymbolTable.textToType(typeText);
+        Type type = Types.textToType(typeText);
         Symbol symbol = new Symbol(type, name);
         currentScope.define(symbol);
     }
@@ -51,7 +53,7 @@ public class DefinePhase extends CcoolBaseListener {
     public void enterMethodDeclaration(CcoolParser.MethodDeclarationContext ctx) {
         Token token = ctx.ID().getSymbol();
         String typeText = ctx.type().getText();
-        Type type = SymbolTable.textToType(typeText);
+        Type type = Types.textToType(typeText);
         FunctionSymbolScope functionScope = new FunctionSymbolScope(type, token, currentScope);
         currentScope.define(functionScope);
         saveScope(ctx, functionScope);

@@ -1,4 +1,4 @@
-// Generated from /src/main/java/net/ziyoung/ccool/antlr/Ccool.g4 by ANTLR 4.8
+// Generated from Ccool.g4 by ANTLR 4.8
 package net.ziyoung.ccool.antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -71,9 +71,43 @@ public interface CcoolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(CcoolParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CcoolParser#expression}.
+	 * Visit a parse tree produced by the {@code Call}
+	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(CcoolParser.ExpressionContext ctx);
+	T visitCall(CcoolParser.CallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Liter}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiter(CcoolParser.LiterContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar(CcoolParser.VarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Parens}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParens(CcoolParser.ParensContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CcoolParser#expressionList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionList(CcoolParser.ExpressionListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CcoolParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral(CcoolParser.LiteralContext ctx);
 }

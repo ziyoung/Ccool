@@ -1,8 +1,10 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.type;
+
+import net.ziyoung.ccool.antlr.CcoolParser;
 
 import java.util.Map;
 
-public class SymbolTable {
+public class Types {
     public static final int tUser = 0;
     public static final int tBool = 1;
     public static final int tInt = 2;
@@ -32,7 +34,11 @@ public class SymbolTable {
         if (primaryTypeMap.containsKey(text)) {
             return primaryTypeMap.get(text);
         }
-        return new UserDefinedType(text);
+        return new TypeReference(text);
+    }
+
+    public static Type typeContextToType(CcoolParser.TypeContext context) {
+        return textToType(context.getText());
     }
 
     public static boolean isIntType(Type type) {
