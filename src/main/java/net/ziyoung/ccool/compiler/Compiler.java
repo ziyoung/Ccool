@@ -1,12 +1,8 @@
 package net.ziyoung.ccool.compiler;
 
-import net.ziyoung.ccool.antlr.CcoolLexer;
-import net.ziyoung.ccool.antlr.CcoolParser;
 import net.ziyoung.ccool.ast.CompilationUnit;
 import net.ziyoung.ccool.parser.CcoolLangParser;
-import net.ziyoung.ccool.parser.ParseErrorListener;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.Token;
 
 import java.io.IOException;
 import java.util.ArrayList;
