@@ -1,17 +1,18 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.scope;
 
 import net.ziyoung.ccool.type.Type;
 import org.antlr.v4.runtime.Token;
 
 import java.util.*;
 
-public class FunctionSymbolScope extends Symbol implements Scope {
+public class FunctionScope implements Scope {
     private final Map<String, Symbol> arguments = new LinkedHashMap<>();
+    private final Type type;
     private final Token token;
     private final Scope enclosingScope;
 
-    public FunctionSymbolScope(Type type, Token token, Scope enclosingScope) {
-        super(type, token.getText());
+    public FunctionScope(Type type, Token token, Scope enclosingScope) {
+        this.type = type;
         this.token = token;
         this.enclosingScope = enclosingScope;
     }
@@ -22,6 +23,10 @@ public class FunctionSymbolScope extends Symbol implements Scope {
 
     public boolean exist(String name) {
         return arguments.containsKey(name);
+    }
+
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class FunctionSymbolScope extends Symbol implements Scope {
 
     @Override
     public String getScopeName() {
-        return getName();
+        return String.format("function %s's scope", token.getText());
     }
 
     @Override

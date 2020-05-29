@@ -2,10 +2,10 @@ package net.ziyoung.ccool.phase;
 
 import net.ziyoung.ccool.antlr.CcoolBaseListener;
 import net.ziyoung.ccool.antlr.CcoolParser;
-import net.ziyoung.ccool.ast.FunctionSymbolScope;
-import net.ziyoung.ccool.ast.GlobalScope;
-import net.ziyoung.ccool.ast.Scope;
-import net.ziyoung.ccool.ast.Symbol;
+import net.ziyoung.ccool.scope.FunctionScope;
+import net.ziyoung.ccool.scope.GlobalScope;
+import net.ziyoung.ccool.scope.Scope;
+import net.ziyoung.ccool.scope.Symbol;
 import net.ziyoung.ccool.checker.Checker;
 import net.ziyoung.ccool.compiler.Compiler;
 import org.antlr.v4.runtime.Token;
@@ -63,7 +63,7 @@ public class CheckPhase extends CcoolBaseListener {
         if (symbol == null) {
             compiler.error(token, "no such variable: " + name);
         }
-        if (symbol instanceof FunctionSymbolScope) {
+        if (symbol instanceof FunctionScope) {
             compiler.error(token,  name + " is function but not a variable");
         }
     }

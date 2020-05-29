@@ -24,7 +24,6 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
         List<Statement> statements = new ArrayList<>();
         for (ParseTree child : ctx.children) {
             Node node = visit(child);
-            System.out.printf("child _> %s\n", node);
             if (node instanceof Statement) {
                 Statement statement = (Statement) node;
                 statements.add(statement);

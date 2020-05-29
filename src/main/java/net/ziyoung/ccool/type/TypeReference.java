@@ -1,15 +1,16 @@
 package net.ziyoung.ccool.type;
 
-public class TypeReference implements Type {
-    private final String name;
+public class TypeReference extends Type {
+    private final String typeName;
 
     public TypeReference(String name) {
-        this.name = name;
+        super(name);
+        typeName = name;
     }
 
     @Override
     public String getName() {
-        return name;
+        return typeName;
     }
 
     @Override

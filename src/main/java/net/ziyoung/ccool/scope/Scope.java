@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.scope;
 
 public interface Scope {
     public String getScopeName();

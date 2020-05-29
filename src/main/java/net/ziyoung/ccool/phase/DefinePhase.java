@@ -2,8 +2,8 @@ package net.ziyoung.ccool.phase;
 
 import net.ziyoung.ccool.antlr.CcoolBaseListener;
 import net.ziyoung.ccool.antlr.CcoolParser;
-import net.ziyoung.ccool.ast.*;
 import net.ziyoung.ccool.compiler.Compiler;
+import net.ziyoung.ccool.scope.*;
 import net.ziyoung.ccool.type.Types;
 import net.ziyoung.ccool.type.Type;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -54,7 +54,7 @@ public class DefinePhase extends CcoolBaseListener {
         Token token = ctx.ID().getSymbol();
         String typeText = ctx.type().getText();
         Type type = Types.textToType(typeText);
-        FunctionSymbolScope functionScope = new FunctionSymbolScope(type, token, currentScope);
+        FunctionScope functionScope = new FunctionScope(type, token, currentScope);
         currentScope.define(functionScope);
         saveScope(ctx, functionScope);
         currentScope = functionScope;
@@ -67,8 +67,8 @@ public class DefinePhase extends CcoolBaseListener {
 
     @Override
     public void enterFormalParameters(CcoolParser.FormalParametersContext ctx) {
-        if (currentScope instanceof FunctionSymbolScope) {
-            FunctionSymbolScope functionScope = (FunctionSymbolScope) currentScope;
+        if (currentScope instanceof FunctionScope) {
+            FunctionScope functionScope = (FunctionScope) currentScope;
             // TODO: use stream to refactor.
             int index = 0;
             for (TerminalNode node : ctx.ID()) {

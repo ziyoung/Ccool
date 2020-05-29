@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.scope;
 
 import net.ziyoung.ccool.type.PrimaryType;
 import net.ziyoung.ccool.type.Types;

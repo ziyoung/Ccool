@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.ast;
+package net.ziyoung.ccool.scope;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

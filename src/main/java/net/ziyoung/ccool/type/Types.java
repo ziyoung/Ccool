@@ -2,6 +2,7 @@ package net.ziyoung.ccool.type;
 
 import net.ziyoung.ccool.antlr.CcoolParser;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Types {
@@ -30,11 +31,18 @@ public class Types {
             "void", _void
     );
 
+    public static final Map<String, TypeReference> typeReferenceMap = new LinkedHashMap<>();
+
     public static Type textToType(String text) {
         if (primaryTypeMap.containsKey(text)) {
             return primaryTypeMap.get(text);
         }
-        return new TypeReference(text);
+        if (typeReferenceMap.containsKey(text)) {
+            return typeReferenceMap.get(text);
+        }
+        TypeReference typeReference = new TypeReference(text);
+        typeReferenceMap.put(text, typeReference);
+        return typeReference;
     }
 
     public static Type typeContextToType(CcoolParser.TypeContext context) {
