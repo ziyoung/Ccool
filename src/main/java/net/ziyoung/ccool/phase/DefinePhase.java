@@ -88,7 +88,7 @@ public class DefinePhase extends CcoolBaseListener {
 
     @Override
     public void enterBlock(CcoolParser.BlockContext ctx) {
-        currentScope = new BlockScope(currentScope);
+        currentScope = new LocalScope(currentScope);
         saveScope(ctx, currentScope);
     }
 

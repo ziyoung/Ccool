@@ -1,5 +1,7 @@
 package net.ziyoung.ccool.scope;
 
+import org.antlr.v4.runtime.Token;
+
 public interface Scope {
     public String getScopeName();
 
@@ -7,7 +9,7 @@ public interface Scope {
 
 //    public Scope getParentScope();
 
-    public void define(Symbol symbol);
+    public void define(Token token, Definition definition);
 
-    public Symbol resolve(String name);
+    public Definition resolve(String name);
 }

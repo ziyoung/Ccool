@@ -2,8 +2,7 @@ package net.ziyoung.ccool.scope;
 
 public class GlobalScope extends BaseScope {
     public GlobalScope() {
-        super(null);
-        definePrimaryTypes();
+        super(null, null);
     }
 
     private void definePrimaryTypes() {
