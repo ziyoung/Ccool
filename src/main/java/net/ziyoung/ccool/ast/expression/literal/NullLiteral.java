@@ -4,8 +4,8 @@ import net.ziyoung.ccool.ast.AstVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class NullLiteral extends Literal {
-    public NullLiteral(Token value) {
-        super(value);
+    public NullLiteral(Token token) {
+        super(token);
     }
 
     @Override

@@ -4,8 +4,8 @@ import net.ziyoung.ccool.ast.AstVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class BoolLiteral extends Literal {
-    public BoolLiteral(Token value) {
-        super(value);
+    public BoolLiteral(Token token) {
+        super(token);
     }
 
     @Override

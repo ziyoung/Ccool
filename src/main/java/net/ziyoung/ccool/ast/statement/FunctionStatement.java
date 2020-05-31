@@ -3,29 +3,30 @@ package net.ziyoung.ccool.ast.statement;
 import net.ziyoung.ccool.ast.AstVisitor;
 import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.ast.expression.Parameter;
+import net.ziyoung.ccool.type.TypeName;
 import org.antlr.v4.runtime.Token;
 
 import java.util.List;
 
 public class FunctionStatement implements Statement {
-    private final Type type;
-    private final Token name;
+    private final TypeName typeName;
+    private final Token token;
     private final List<Parameter> parameters;
     private final BlockStatement body;
 
-    public FunctionStatement(Type type, Token name, List<Parameter> parameters, BlockStatement body) {
-        this.type = type;
-        this.name = name;
+    public FunctionStatement(TypeName typeName, Token token, List<Parameter> parameters, BlockStatement body) {
+        this.typeName = typeName;
+        this.token = token;
         this.parameters = parameters;
         this.body = body;
     }
 
-    public Type getType() {
-        return type;
+    public TypeName getTypeName() {
+        return typeName;
     }
 
-    public Token getName() {
-        return name;
+    public Token getToken() {
+        return token;
     }
 
     public List<Parameter> getParameters() {

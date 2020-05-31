@@ -1,16 +1,8 @@
 package net.ziyoung.ccool.type;
 
 public class PrimaryType extends Type {
-    private final int typeIndex;
-
-    public PrimaryType(int typeIndex, String typeName) {
-        super(typeName);
-        this.typeIndex = typeIndex;
-    }
-
-    @Override
-    public int getTypeIndex() {
-        return typeIndex;
+    public PrimaryType(int index, String name) {
+        super(index, name);
     }
 
     @Override

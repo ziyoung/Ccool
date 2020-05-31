@@ -5,14 +5,14 @@ import net.ziyoung.ccool.ast.expression.Expression;
 import org.antlr.v4.runtime.Token;
 
 public abstract class Literal implements Expression {
-    private final Token value;
+    private final Token token;
 
-    public Literal(Token value) {
-        this.value = value;
+    public Literal(Token token) {
+        this.token = token;
     }
 
-    public Token getValue() {
-        return value;
+    public Token getToken() {
+        return token;
     }
 
     @Override

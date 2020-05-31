@@ -1,23 +1,22 @@
 package net.ziyoung.ccool.ast.expression;
 
 import net.ziyoung.ccool.ast.AstVisitor;
-import org.antlr.v4.runtime.Token;
 
 public class AssignExpression implements Expression {
-    private final Token name;
-    private final Expression value;
+    private final Expression lhs;
+    private final Expression rhs;
 
-    public AssignExpression(Token name, Expression value) {
-        this.name = name;
-        this.value = value;
+    public AssignExpression(Expression lhs, Expression rhs) {
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
 
-    public Token getName() {
-        return name;
+    public Expression getLhs() {
+        return lhs;
     }
 
-    public Expression getValue() {
-        return value;
+    public Expression getRhs() {
+        return rhs;
     }
 
     @Override

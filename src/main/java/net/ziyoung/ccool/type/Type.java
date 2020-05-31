@@ -1,26 +1,28 @@
 package net.ziyoung.ccool.type;
 
-import net.ziyoung.ccool.scope.Symbol;
+public class Type {
+    private final String name;
+    private final int index;
 
-public abstract class Type extends Symbol {
-    public Type(String name) {
-        super(name);
+    public Type(int index, String name) {
+        this.index = index;
+        this.name = name;
     }
 
-    public abstract int getTypeIndex();
+    public Type() {
+        name = null;
+        index = Types.tInvalid;
+    }
 
-    // FIXME: canAssignTo needs to be implemented.
+    public String getName() {
+        return name;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     public boolean canAssignTo(Type destType) {
         return false;
-    }
-
-    @Override
-    public boolean isType() {
-        return super.isType();
-    }
-
-    @Override
-    public Type getType() {
-        return this;
     }
 }
