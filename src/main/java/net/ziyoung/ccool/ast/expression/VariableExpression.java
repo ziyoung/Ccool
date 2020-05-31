@@ -4,15 +4,14 @@ import net.ziyoung.ccool.ast.AstVisitor;
 import org.antlr.v4.runtime.Token;
 
 public class VariableExpression implements Expression {
-    private final Token name;
-    // TODO: add Type for variable.
+    private final Token token;
 
-    public VariableExpression(Token name) {
-        this.name = name;
+    public VariableExpression(Token token) {
+        this.token = token;
     }
 
-    public Token getName() {
-        return name;
+    public Token getToken() {
+        return token;
     }
 
     @Override

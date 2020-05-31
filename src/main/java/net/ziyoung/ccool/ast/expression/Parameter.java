@@ -1,24 +1,24 @@
 package net.ziyoung.ccool.ast.expression;
 
 import net.ziyoung.ccool.ast.AstVisitor;
-import net.ziyoung.ccool.type.Type;
+import net.ziyoung.ccool.type.TypeName;
 import org.antlr.v4.runtime.Token;
 
 public class Parameter implements Expression {
-    private final Type type;
-    private final Token name;
+    private final TypeName typeName;
+    private final Token token;
 
-    public Parameter(Type type, Token name) {
-        this.type = type;
-        this.name = name;
+    public Parameter(TypeName typeName, Token token) {
+        this.typeName = typeName;
+        this.token = token;
     }
 
-    public Type getType() {
-        return type;
+    public TypeName getTypeName() {
+        return typeName;
     }
 
-    public Token getName() {
-        return name;
+    public Token getToken() {
+        return token;
     }
 
     @Override

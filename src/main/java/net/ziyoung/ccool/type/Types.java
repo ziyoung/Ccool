@@ -2,9 +2,11 @@ package net.ziyoung.ccool.type;
 
 import net.ziyoung.ccool.antlr.CcoolParser;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Types {
+    public static final int tInvalid = -1;
     public static final int tUser = 0;
     public static final int tBool = 1;
     public static final int tInt = 2;
@@ -30,15 +32,22 @@ public class Types {
             "void", _void
     );
 
+    public static final Map<String, Type> typeReferenceMap = new LinkedHashMap<>();
+
     public static Type textToType(String text) {
         if (primaryTypeMap.containsKey(text)) {
             return primaryTypeMap.get(text);
         }
-        return new TypeReference(text);
+        if (typeReferenceMap.containsKey(text)) {
+            return typeReferenceMap.get(text);
+        }
+        Type type = new Type(tUser, text);
+        typeReferenceMap.put(text, type);
+        return type;
     }
 
-    public static Type typeContextToType(CcoolParser.TypeContext context) {
-        return textToType(context.getText());
+    public static TypeName typeContextToTypeName(CcoolParser.TypeContext context) {
+        return new TypeName(context.getStart());
     }
 
     public static boolean isIntType(Type type) {

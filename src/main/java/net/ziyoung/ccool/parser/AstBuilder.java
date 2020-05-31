@@ -11,6 +11,7 @@ import net.ziyoung.ccool.ast.expression.VariableExpression;
 import net.ziyoung.ccool.ast.expression.literal.*;
 import net.ziyoung.ccool.ast.statement.*;
 import net.ziyoung.ccool.type.Type;
+import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -24,7 +25,6 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
         List<Statement> statements = new ArrayList<>();
         for (ParseTree child : ctx.children) {
             Node node = visit(child);
-            System.out.printf("child _> %s\n", node);
             if (node instanceof Statement) {
                 Statement statement = (Statement) node;
                 statements.add(statement);
@@ -32,26 +32,27 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
                 throw new RuntimeException(String.format("Should get statement rather than %s", node));
             }
         }
-        return new CompilationUnit(statements);
+        // Right now packageName is empty.
+        return new CompilationUnit("", statements);
     }
 
     @Override
     public FunctionStatement visitMethodDeclaration(CcoolParser.MethodDeclarationContext ctx) {
         Token token = ctx.ID().getSymbol();
-        Type type = Types.typeContextToType(ctx.type());
+        TypeName typeName = Types.typeContextToTypeName(ctx.type());
         List<Parameter> parameters = new ArrayList<>();
         CcoolParser.FormalParametersContext parametersContext = ctx.formalParameters();
         if (parametersContext != null) {
             int index = 0;
             for (CcoolParser.TypeContext typeContext : parametersContext.type()) {
-                Type type1 = Types.typeContextToType(typeContext);
+                TypeName typeName1 = Types.typeContextToTypeName(typeContext);
                 Token token1 = parametersContext.ID(index).getSymbol();
-                Parameter parameter = new Parameter(type1, token1);
+                Parameter parameter = new Parameter(typeName1, token1);
                 parameters.add(parameter);
             }
         }
         BlockStatement blockStatement = visitBlock(ctx.block());
-        return new FunctionStatement(type, token, parameters, blockStatement);
+        return new FunctionStatement(typeName, token, parameters, blockStatement);
     }
 
     @Override
@@ -79,19 +80,21 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
 
     @Override
     public VariableDeclaration visitVarDeclaration(CcoolParser.VarDeclarationContext ctx) {
-        Type type = Types.typeContextToType(ctx.type());
+        TypeName typeName = Types.typeContextToTypeName(ctx.type());
         Token token = ctx.ID().getSymbol();
         Expression expression = null;
         CcoolParser.ExpressionContext expressionContext = ctx.expression();
         if (expressionContext != null) {
             expression = (Expression) visit(expressionContext);
         }
-        return new VariableDeclaration(type, token, expression);
+        return new VariableDeclaration(typeName, token, expression);
     }
 
     @Override
     public CallExpression visitCall(CcoolParser.CallContext ctx) {
+        // FIXME: support class method call link new A().fn()
         Token token = ctx.ID().getSymbol();
+        Expression function = new VariableExpression(token);
         List<Expression> arguments = new ArrayList<>();
         CcoolParser.ExpressionListContext listContext = ctx.expressionList();
         if (listContext != null) {
@@ -100,7 +103,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
                 arguments.add(expression);
             }
         }
-        return new CallExpression(token, arguments);
+        return new CallExpression(function, arguments);
     }
 
     @Override

@@ -21,13 +21,15 @@ public interface AstVisitor<R, C> {
         return visitExpression(node, context);
     }
 
-    public R visitStringLiteral(StringLiteral node, C context);
-
     public R visitBoolLiteral(BoolLiteral node, C context);
 
     public R visitIntLiteral(IntLiteral node, C context);
 
     public R visitDoubleLiteral(DoubleLiteral node, C context);
+
+    public R visitStringLiteral(StringLiteral node, C context);
+
+    public R visitNullLiteral(NullLiteral node, C context);
 
     public R visitVariableExpression(VariableExpression node, C context);
 
