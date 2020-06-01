@@ -13,7 +13,6 @@ import net.ziyoung.ccool.ast.statement.*;
 import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;

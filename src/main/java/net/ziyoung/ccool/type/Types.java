@@ -1,8 +1,6 @@
 package net.ziyoung.ccool.type;
 
 import net.ziyoung.ccool.antlr.CcoolParser;
-import net.ziyoung.ccool.ast.statement.ClassDeclaration;
-import org.antlr.v4.runtime.Token;
 
 import java.util.Map;
 
