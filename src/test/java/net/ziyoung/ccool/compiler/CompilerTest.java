@@ -1,6 +1,5 @@
 package net.ziyoung.ccool.compiler;
 
-import net.ziyoung.ccool.ast.CompilationUnit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,11 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CompilerTest {
 
     @Test
-    @DisplayName("compiler success")
+    @DisplayName("compile success")
     void compileFile() {
-        Compiler compiler = new Compiler("src/test/resources/1-hello-world.ccool");
-        CompilationUnit compilationUnit = assertDoesNotThrow(compiler::compile);
-        assertNotNull(compilationUnit);
+        Compiler compiler = new Compiler("src/test/resources/hello-world.ccool");
+        assertDoesNotThrow(compiler::compile);
+        assertNotNull(compiler.getCompilationUnit());
         assertTrue(compiler.parseSuccess());
+        assertTrue(compiler.compileSuccess());
     }
+
+//    @Test
+//    @DisplayName("invalid function")
+//    void doPreAnalyse() {
+//        Compiler compiler = new Compiler("src/test/resources/declare-function-and-class.ccool");
+//        assertDoesNotThrow(compiler::compile);
+//        assertFalse(compiler.compileSuccess());
+//    }
 }

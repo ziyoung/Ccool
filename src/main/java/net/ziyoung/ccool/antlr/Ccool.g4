@@ -5,7 +5,7 @@ grammar Ccool;
 // All features in Cool need to be implemented.
 
 compilationUnit
-    : (classDefinition | varDeclaration | methodDeclaration)+
+    : classDefinition+
     ;
 
 classDefinition
@@ -17,7 +17,7 @@ superClass
     ;
 
 classMember
-    : type ID ('=' expression)? ';'
+    : varDeclaration
     | methodDeclaration
     ;
 

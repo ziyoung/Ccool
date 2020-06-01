@@ -1,7 +1,6 @@
 package net.ziyoung.ccool.ast.statement;
 
 import net.ziyoung.ccool.ast.AstVisitor;
-import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.ast.expression.Expression;
 import net.ziyoung.ccool.type.TypeName;
 import org.antlr.v4.runtime.Token;

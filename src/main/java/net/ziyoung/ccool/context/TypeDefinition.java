@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.scope;
+package net.ziyoung.ccool.context;
 
 import net.ziyoung.ccool.type.Type;
 

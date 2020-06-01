@@ -1,25 +1,34 @@
 package net.ziyoung.ccool.ast;
 
-import net.ziyoung.ccool.ast.statement.Statement;
+import net.ziyoung.ccool.ast.statement.ClassDeclaration;
+import net.ziyoung.ccool.context.CompilationUnitContext;
 
 import java.util.List;
 
 public class CompilationUnit implements Node {
     private final String packageName;
-    private final List<Statement> statements;
-//    private final List<TypeName> typeNames;
+    private final List<ClassDeclaration> declarations;
+    private CompilationUnitContext context;
 
-    public CompilationUnit(String packageName, List<Statement> statements) {
+    public CompilationUnit(String packageName, List<ClassDeclaration> declarations) {
         this.packageName = packageName;
-        this.statements = statements;
+        this.declarations = declarations;
     }
 
     public String getPackageName() {
         return packageName;
     }
 
-    public List<Statement> getStatements() {
-        return statements;
+    public List<ClassDeclaration> getDeclarations() {
+        return declarations;
+    }
+
+    public CompilationUnitContext getContext() {
+        return context;
+    }
+
+    public void setContext(CompilationUnitContext context) {
+        this.context = context;
     }
 
     @Override

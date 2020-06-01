@@ -1,5 +1,0 @@
-int main() {
-    string msg = "Hello, World\n";
-    int i = 123;
-    print(msg);
-}

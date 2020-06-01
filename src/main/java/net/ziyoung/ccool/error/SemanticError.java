@@ -1,12 +1,12 @@
-package net.ziyoung.ccool.compiler;
+package net.ziyoung.ccool.error;
 
 import org.antlr.v4.runtime.Token;
 
-final class CompileError {
-    Token name;
-    String msg;
+public class SemanticError {
+    private final Token name;
+    private final String msg;
 
-    public CompileError(Token name, String msg) {
+    public SemanticError(Token name, String msg) {
         this.name = name;
         this.msg = msg;
     }
@@ -18,4 +18,5 @@ final class CompileError {
         }
         return String.format("line %d: %d %s", name.getLine(), name.getCharPositionInLine(), msg);
     }
+
 }

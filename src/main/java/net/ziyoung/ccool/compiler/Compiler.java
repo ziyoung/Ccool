@@ -1,42 +1,52 @@
 package net.ziyoung.ccool.compiler;
 
 import net.ziyoung.ccool.ast.CompilationUnit;
+import net.ziyoung.ccool.error.SemanticErrors;
 import net.ziyoung.ccool.parser.CcoolLangParser;
-import org.antlr.v4.runtime.Token;
+import net.ziyoung.ccool.phase.PreAnalysePhase;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Compiler {
     private CcoolLangParser parser;
-    private final List<CompileError> errors = new ArrayList<>();
     private final String fileName;
+    private CompilationUnit compilationUnit;
 
     public Compiler(String fileName) {
         this.fileName = fileName;
     }
 
-    public CompilationUnit compile() throws IOException {
+    public void compile() throws IOException {
+        compilationUnit = parse();
+        if (!parseSuccess()) {
+            return;
+        }
+        preAnalyse();
+    }
+
+    private CompilationUnit parse() throws IOException {
         parser = new CcoolLangParser(fileName);
         return parser.parse();
     }
 
+    private void preAnalyse() {
+        PreAnalysePhase preAnalysePhase = new PreAnalysePhase();
+        preAnalysePhase.visitCompilationUnit(compilationUnit, null);
+    }
+
     public boolean parseSuccess() {
-        return parser.isSuccess();
+        return parser.success();
     }
     
-    public boolean isPassed() {
-        return errors.size() == 0;
-    }
+   public boolean compileSuccess() {
+        return SemanticErrors.success();
+   }
 
-    public void report() {
-        for (CompileError err : errors) {
-            System.err.println(fileName + ": " + err.toString());
-        }
-    }
+   public void report() {
+        SemanticErrors.report();
+   }
 
-    public void error(Token token, String msg) {
-        errors.add(new CompileError(token, msg));
+    public CompilationUnit getCompilationUnit() {
+        return compilationUnit;
     }
 }
