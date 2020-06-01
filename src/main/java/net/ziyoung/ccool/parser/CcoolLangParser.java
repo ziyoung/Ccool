@@ -29,7 +29,7 @@ public class CcoolLangParser {
         return (CompilationUnit) tree.accept(new AstBuilder());
     }
 
-    public boolean isSuccess() {
+    public boolean success() {
         return !errorListener.isFailed();
     }
 }

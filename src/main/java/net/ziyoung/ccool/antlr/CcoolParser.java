@@ -36,8 +36,8 @@ public class CcoolParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'class'", "'{'", "'}'", "'extend'", "'='", "';'", "'('", "')'", 
-			"','", "'int'", "'double'", "'string'", "'bool'", "'void'", null, null, 
+			null, "'class'", "'{'", "'}'", "'extend'", "'('", "')'", "','", "'int'", 
+			"'double'", "'string'", "'bool'", "'void'", "'='", "';'", null, null, 
 			null, "'null'"
 		};
 	}
@@ -107,18 +107,6 @@ public class CcoolParser extends Parser {
 		public ClassDefinitionContext classDefinition(int i) {
 			return getRuleContext(ClassDefinitionContext.class,i);
 		}
-		public List<VarDeclarationContext> varDeclaration() {
-			return getRuleContexts(VarDeclarationContext.class);
-		}
-		public VarDeclarationContext varDeclaration(int i) {
-			return getRuleContext(VarDeclarationContext.class,i);
-		}
-		public List<MethodDeclarationContext> methodDeclaration() {
-			return getRuleContexts(MethodDeclarationContext.class);
-		}
-		public MethodDeclarationContext methodDeclaration(int i) {
-			return getRuleContext(MethodDeclarationContext.class,i);
-		}
 		public CompilationUnitContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -145,38 +133,20 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(29); 
+			setState(27); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(29);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
-				case 1:
-					{
-					setState(26);
-					classDefinition();
-					}
-					break;
-				case 2:
-					{
-					setState(27);
-					varDeclaration();
-					}
-					break;
-				case 3:
-					{
-					setState(28);
-					methodDeclaration();
-					}
-					break;
+				{
+				setState(26);
+				classDefinition();
 				}
 				}
-				setState(31); 
+				setState(29); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0) );
+			} while ( _la==T__0 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -227,37 +197,37 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(33);
+			setState(31);
 			match(T__0);
-			setState(34);
+			setState(32);
 			match(ID);
-			setState(36);
+			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__3) {
 				{
-				setState(35);
+				setState(33);
 				superClass();
 				}
 			}
 
-			setState(38);
+			setState(36);
 			match(T__1);
-			setState(40); 
+			setState(38); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(39);
+				setState(37);
 				classMember();
 				}
 				}
-				setState(42); 
+				setState(40); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0) );
-			setState(44);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0) );
+			setState(42);
 			match(T__2);
 			}
 		}
@@ -299,9 +269,9 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
+			setState(44);
 			match(T__3);
-			setState(47);
+			setState(45);
 			match(ID);
 			}
 		}
@@ -317,12 +287,8 @@ public class CcoolParser extends Parser {
 	}
 
 	public static class ClassMemberContext extends ParserRuleContext {
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
-		}
-		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
+		public VarDeclarationContext varDeclaration() {
+			return getRuleContext(VarDeclarationContext.class,0);
 		}
 		public MethodDeclarationContext methodDeclaration() {
 			return getRuleContext(MethodDeclarationContext.class,0);
@@ -349,38 +315,21 @@ public class CcoolParser extends Parser {
 	public final ClassMemberContext classMember() throws RecognitionException {
 		ClassMemberContext _localctx = new ClassMemberContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_classMember);
-		int _la;
 		try {
-			setState(58);
+			setState(49);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(49);
-				type();
-				setState(50);
-				match(ID);
-				setState(53);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==T__4) {
-					{
-					setState(51);
-					match(T__4);
-					setState(52);
-					expression();
-					}
-				}
-
-				setState(55);
-				match(T__5);
+				setState(47);
+				varDeclaration();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(57);
+				setState(48);
 				methodDeclaration();
 				}
 				break;
@@ -434,25 +383,25 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
+			setState(51);
 			type();
-			setState(61);
+			setState(52);
 			match(ID);
-			setState(62);
-			match(T__6);
-			setState(64);
+			setState(53);
+			match(T__4);
+			setState(55);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0)) {
 				{
-				setState(63);
+				setState(54);
 				formalParameters();
 				}
 			}
 
-			setState(66);
-			match(T__7);
-			setState(67);
+			setState(57);
+			match(T__5);
+			setState(58);
 			block();
 			}
 		}
@@ -504,25 +453,25 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(69);
+			setState(60);
 			type();
-			setState(70);
+			setState(61);
 			match(ID);
-			setState(77);
+			setState(68);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__8) {
+			while (_la==T__6) {
 				{
 				{
-				setState(71);
-				match(T__8);
-				setState(72);
+				setState(62);
+				match(T__6);
+				setState(63);
 				type();
-				setState(73);
+				setState(64);
 				match(ID);
 				}
 				}
-				setState(79);
+				setState(70);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -567,9 +516,9 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(80);
+			setState(71);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << ID))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << ID))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -623,23 +572,23 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82);
+			setState(73);
 			match(T__1);
-			setState(86);
+			setState(77);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__6) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__13) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(83);
+				setState(74);
 				statement();
 				}
 				}
-				setState(88);
+				setState(79);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(89);
+			setState(80);
 			match(T__2);
 			}
 		}
@@ -688,24 +637,24 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
+			setState(82);
 			type();
-			setState(92);
+			setState(83);
 			match(ID);
-			setState(95);
+			setState(86);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__4) {
+			if (_la==T__12) {
 				{
-				setState(93);
-				match(T__4);
-				setState(94);
+				setState(84);
+				match(T__12);
+				setState(85);
 				expression();
 				}
 			}
 
-			setState(97);
-			match(T__5);
+			setState(88);
+			match(T__13);
 			}
 		}
 		catch (RecognitionException re) {
@@ -752,30 +701,30 @@ public class CcoolParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_statement);
 		try {
-			setState(104);
+			setState(95);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(99);
+				setState(90);
 				block();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(100);
+				setState(91);
 				varDeclaration();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(101);
+				setState(92);
 				expression();
-				setState(102);
-				match(T__5);
+				setState(93);
+				match(T__13);
 				}
 				break;
 			}
@@ -883,36 +832,36 @@ public class CcoolParser extends Parser {
 		enterRule(_localctx, 20, RULE_expression);
 		int _la;
 		try {
-			setState(118);
+			setState(109);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				_localctx = new CallContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(106);
+				setState(97);
 				match(ID);
-				setState(107);
-				match(T__6);
-				setState(109);
+				setState(98);
+				match(T__4);
+				setState(100);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__6) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << NULL) | (1L << STRING) | (1L << ID))) != 0)) {
 					{
-					setState(108);
+					setState(99);
 					expressionList();
 					}
 				}
 
-				setState(111);
-				match(T__7);
+				setState(102);
+				match(T__5);
 				}
 				break;
 			case 2:
 				_localctx = new LiterContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(112);
+				setState(103);
 				literal();
 				}
 				break;
@@ -920,7 +869,7 @@ public class CcoolParser extends Parser {
 				_localctx = new VarContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(113);
+				setState(104);
 				match(ID);
 				}
 				break;
@@ -928,12 +877,12 @@ public class CcoolParser extends Parser {
 				_localctx = new ParensContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(114);
-				match(T__6);
-				setState(115);
+				setState(105);
+				match(T__4);
+				setState(106);
 				expression();
-				setState(116);
-				match(T__7);
+				setState(107);
+				match(T__5);
 				}
 				break;
 			}
@@ -982,21 +931,21 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(120);
+			setState(111);
 			expression();
-			setState(125);
+			setState(116);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__8) {
+			while (_la==T__6) {
 				{
 				{
-				setState(121);
-				match(T__8);
-				setState(122);
+				setState(112);
+				match(T__6);
+				setState(113);
 				expression();
 				}
 				}
-				setState(127);
+				setState(118);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1045,7 +994,7 @@ public class CcoolParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(128);
+			setState(119);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << DOUBLE) | (1L << BOOL) | (1L << NULL) | (1L << STRING))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1069,39 +1018,36 @@ public class CcoolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31\u0085\4\2\t\2"+
-		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\2\6\2 \n\2\r\2\16\2!\3\3\3\3"+
-		"\3\3\5\3\'\n\3\3\3\3\3\6\3+\n\3\r\3\16\3,\3\3\3\3\3\4\3\4\3\4\3\5\3\5"+
-		"\3\5\3\5\5\58\n\5\3\5\3\5\3\5\5\5=\n\5\3\6\3\6\3\6\3\6\5\6C\n\6\3\6\3"+
-		"\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\7\7N\n\7\f\7\16\7Q\13\7\3\b\3\b\3\t\3\t"+
-		"\7\tW\n\t\f\t\16\tZ\13\t\3\t\3\t\3\n\3\n\3\n\3\n\5\nb\n\n\3\n\3\n\3\13"+
-		"\3\13\3\13\3\13\3\13\5\13k\n\13\3\f\3\f\3\f\5\fp\n\f\3\f\3\f\3\f\3\f\3"+
-		"\f\3\f\3\f\5\fy\n\f\3\r\3\r\3\r\7\r~\n\r\f\r\16\r\u0081\13\r\3\16\3\16"+
-		"\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\4\2\f\20\26\26\3\2\21"+
-		"\25\2\u0089\2\37\3\2\2\2\4#\3\2\2\2\6\60\3\2\2\2\b<\3\2\2\2\n>\3\2\2\2"+
-		"\fG\3\2\2\2\16R\3\2\2\2\20T\3\2\2\2\22]\3\2\2\2\24j\3\2\2\2\26x\3\2\2"+
-		"\2\30z\3\2\2\2\32\u0082\3\2\2\2\34 \5\4\3\2\35 \5\22\n\2\36 \5\n\6\2\37"+
-		"\34\3\2\2\2\37\35\3\2\2\2\37\36\3\2\2\2 !\3\2\2\2!\37\3\2\2\2!\"\3\2\2"+
-		"\2\"\3\3\2\2\2#$\7\3\2\2$&\7\26\2\2%\'\5\6\4\2&%\3\2\2\2&\'\3\2\2\2\'"+
-		"(\3\2\2\2(*\7\4\2\2)+\5\b\5\2*)\3\2\2\2+,\3\2\2\2,*\3\2\2\2,-\3\2\2\2"+
-		"-.\3\2\2\2./\7\5\2\2/\5\3\2\2\2\60\61\7\6\2\2\61\62\7\26\2\2\62\7\3\2"+
-		"\2\2\63\64\5\16\b\2\64\67\7\26\2\2\65\66\7\7\2\2\668\5\26\f\2\67\65\3"+
-		"\2\2\2\678\3\2\2\289\3\2\2\29:\7\b\2\2:=\3\2\2\2;=\5\n\6\2<\63\3\2\2\2"+
-		"<;\3\2\2\2=\t\3\2\2\2>?\5\16\b\2?@\7\26\2\2@B\7\t\2\2AC\5\f\7\2BA\3\2"+
-		"\2\2BC\3\2\2\2CD\3\2\2\2DE\7\n\2\2EF\5\20\t\2F\13\3\2\2\2GH\5\16\b\2H"+
-		"O\7\26\2\2IJ\7\13\2\2JK\5\16\b\2KL\7\26\2\2LN\3\2\2\2MI\3\2\2\2NQ\3\2"+
-		"\2\2OM\3\2\2\2OP\3\2\2\2P\r\3\2\2\2QO\3\2\2\2RS\t\2\2\2S\17\3\2\2\2TX"+
-		"\7\4\2\2UW\5\24\13\2VU\3\2\2\2WZ\3\2\2\2XV\3\2\2\2XY\3\2\2\2Y[\3\2\2\2"+
-		"ZX\3\2\2\2[\\\7\5\2\2\\\21\3\2\2\2]^\5\16\b\2^a\7\26\2\2_`\7\7\2\2`b\5"+
-		"\26\f\2a_\3\2\2\2ab\3\2\2\2bc\3\2\2\2cd\7\b\2\2d\23\3\2\2\2ek\5\20\t\2"+
-		"fk\5\22\n\2gh\5\26\f\2hi\7\b\2\2ik\3\2\2\2je\3\2\2\2jf\3\2\2\2jg\3\2\2"+
-		"\2k\25\3\2\2\2lm\7\26\2\2mo\7\t\2\2np\5\30\r\2on\3\2\2\2op\3\2\2\2pq\3"+
-		"\2\2\2qy\7\n\2\2ry\5\32\16\2sy\7\26\2\2tu\7\t\2\2uv\5\26\f\2vw\7\n\2\2"+
-		"wy\3\2\2\2xl\3\2\2\2xr\3\2\2\2xs\3\2\2\2xt\3\2\2\2y\27\3\2\2\2z\177\5"+
-		"\26\f\2{|\7\13\2\2|~\5\26\f\2}{\3\2\2\2~\u0081\3\2\2\2\177}\3\2\2\2\177"+
-		"\u0080\3\2\2\2\u0080\31\3\2\2\2\u0081\177\3\2\2\2\u0082\u0083\t\3\2\2"+
-		"\u0083\33\3\2\2\2\20\37!&,\67<BOXajox\177";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31|\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\4\r\t\r\4\16\t\16\3\2\6\2\36\n\2\r\2\16\2\37\3\3\3\3\3\3\5\3%\n"+
+		"\3\3\3\3\3\6\3)\n\3\r\3\16\3*\3\3\3\3\3\4\3\4\3\4\3\5\3\5\5\5\64\n\5\3"+
+		"\6\3\6\3\6\3\6\5\6:\n\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\7\7E\n\7\f"+
+		"\7\16\7H\13\7\3\b\3\b\3\t\3\t\7\tN\n\t\f\t\16\tQ\13\t\3\t\3\t\3\n\3\n"+
+		"\3\n\3\n\5\nY\n\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\5\13b\n\13\3\f\3\f"+
+		"\3\f\5\fg\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\fp\n\f\3\r\3\r\3\r\7\ru\n"+
+		"\r\f\r\16\rx\13\r\3\16\3\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30"+
+		"\32\2\4\4\2\n\16\26\26\3\2\21\25\2}\2\35\3\2\2\2\4!\3\2\2\2\6.\3\2\2\2"+
+		"\b\63\3\2\2\2\n\65\3\2\2\2\f>\3\2\2\2\16I\3\2\2\2\20K\3\2\2\2\22T\3\2"+
+		"\2\2\24a\3\2\2\2\26o\3\2\2\2\30q\3\2\2\2\32y\3\2\2\2\34\36\5\4\3\2\35"+
+		"\34\3\2\2\2\36\37\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \3\3\2\2\2!\"\7\3"+
+		"\2\2\"$\7\26\2\2#%\5\6\4\2$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&(\7\4\2\2\')"+
+		"\5\b\5\2(\'\3\2\2\2)*\3\2\2\2*(\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\5\2\2"+
+		"-\5\3\2\2\2./\7\6\2\2/\60\7\26\2\2\60\7\3\2\2\2\61\64\5\22\n\2\62\64\5"+
+		"\n\6\2\63\61\3\2\2\2\63\62\3\2\2\2\64\t\3\2\2\2\65\66\5\16\b\2\66\67\7"+
+		"\26\2\2\679\7\7\2\28:\5\f\7\298\3\2\2\29:\3\2\2\2:;\3\2\2\2;<\7\b\2\2"+
+		"<=\5\20\t\2=\13\3\2\2\2>?\5\16\b\2?F\7\26\2\2@A\7\t\2\2AB\5\16\b\2BC\7"+
+		"\26\2\2CE\3\2\2\2D@\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\r\3\2\2\2H"+
+		"F\3\2\2\2IJ\t\2\2\2J\17\3\2\2\2KO\7\4\2\2LN\5\24\13\2ML\3\2\2\2NQ\3\2"+
+		"\2\2OM\3\2\2\2OP\3\2\2\2PR\3\2\2\2QO\3\2\2\2RS\7\5\2\2S\21\3\2\2\2TU\5"+
+		"\16\b\2UX\7\26\2\2VW\7\17\2\2WY\5\26\f\2XV\3\2\2\2XY\3\2\2\2YZ\3\2\2\2"+
+		"Z[\7\20\2\2[\23\3\2\2\2\\b\5\20\t\2]b\5\22\n\2^_\5\26\f\2_`\7\20\2\2`"+
+		"b\3\2\2\2a\\\3\2\2\2a]\3\2\2\2a^\3\2\2\2b\25\3\2\2\2cd\7\26\2\2df\7\7"+
+		"\2\2eg\5\30\r\2fe\3\2\2\2fg\3\2\2\2gh\3\2\2\2hp\7\b\2\2ip\5\32\16\2jp"+
+		"\7\26\2\2kl\7\7\2\2lm\5\26\f\2mn\7\b\2\2np\3\2\2\2oc\3\2\2\2oi\3\2\2\2"+
+		"oj\3\2\2\2ok\3\2\2\2p\27\3\2\2\2qv\5\26\f\2rs\7\t\2\2su\5\26\f\2tr\3\2"+
+		"\2\2ux\3\2\2\2vt\3\2\2\2vw\3\2\2\2w\31\3\2\2\2xv\3\2\2\2yz\t\3\2\2z\33"+
+		"\3\2\2\2\16\37$*\639FOXafov";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

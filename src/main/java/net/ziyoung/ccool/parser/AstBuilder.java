@@ -10,11 +10,9 @@ import net.ziyoung.ccool.ast.expression.Parameter;
 import net.ziyoung.ccool.ast.expression.VariableExpression;
 import net.ziyoung.ccool.ast.expression.literal.*;
 import net.ziyoung.ccool.ast.statement.*;
-import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +20,37 @@ import java.util.List;
 public class AstBuilder extends CcoolBaseVisitor<Node> {
     @Override
     public CompilationUnit visitCompilationUnit(CcoolParser.CompilationUnitContext ctx) {
-        List<Statement> statements = new ArrayList<>();
-        for (ParseTree child : ctx.children) {
-            Node node = visit(child);
-            if (node instanceof Statement) {
-                Statement statement = (Statement) node;
-                statements.add(statement);
-            } else {
-                throw new RuntimeException(String.format("Should get statement rather than %s", node));
-            }
+        List<ClassDeclaration> declarations = new ArrayList<>();
+        for (CcoolParser.ClassDefinitionContext classDefinitionContext : ctx.classDefinition()) {
+            ClassDeclaration declaration = visitClassDefinition(classDefinitionContext);
+            declarations.add(declaration);
         }
         // Right now packageName is empty.
-        return new CompilationUnit("", statements);
+        return new CompilationUnit("", declarations);
     }
 
     @Override
-    public FunctionStatement visitMethodDeclaration(CcoolParser.MethodDeclarationContext ctx) {
+    public ClassDeclaration visitClassDefinition(CcoolParser.ClassDefinitionContext ctx) {
+        Token token = ctx.ID().getSymbol();
+        List<Statement> statements = new ArrayList<>();
+        for (CcoolParser.ClassMemberContext classMemberContext : ctx.classMember()) {
+            Statement declaration = null;
+            if (classMemberContext.varDeclaration() != null) {
+                CcoolParser.VarDeclarationContext context = classMemberContext.varDeclaration();
+                declaration = visitVarDeclaration(context);
+            } else if (classMemberContext.methodDeclaration() != null) {
+                CcoolParser.MethodDeclarationContext context = classMemberContext.methodDeclaration();
+                declaration = visitMethodDeclaration(context);
+            }
+            if (declaration != null) {
+                statements.add(declaration);
+            }
+        }
+        return new ClassDeclaration(token, statements);
+    }
+
+    @Override
+    public MethodDeclaration visitMethodDeclaration(CcoolParser.MethodDeclarationContext ctx) {
         Token token = ctx.ID().getSymbol();
         TypeName typeName = Types.typeContextToTypeName(ctx.type());
         List<Parameter> parameters = new ArrayList<>();
@@ -52,7 +65,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
             }
         }
         BlockStatement blockStatement = visitBlock(ctx.block());
-        return new FunctionStatement(typeName, token, parameters, blockStatement);
+        return new MethodDeclaration(typeName, token, parameters, blockStatement);
     }
 
     @Override

@@ -1,0 +1,11 @@
+class Main {
+    int i = 123;
+
+    int main() {
+        print(i);
+        int j = i;
+        print(j);
+        string msg = "Hello, World\n";
+        print(msg);
+    }
+}

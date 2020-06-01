@@ -45,7 +45,9 @@ public interface AstVisitor<R, C> {
 
     public R visitBlockStatement(BlockStatement node, C context);
 
-    public R visitFunctionStatement(FunctionStatement node, C context);
+    public R visitMethodDeclaration(MethodDeclaration node, C context);
+
+    public R visitClassDeclaration(ClassDeclaration node, C context);
 
     public R visitCompilationUnit(CompilationUnit node, C context);
 }
