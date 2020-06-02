@@ -1,0 +1,8 @@
+class Main {
+    int i = 123;
+    t0 t = 456;
+    int main(t1 v0, int v0, int y) {
+        print(i);
+        print(v0);
+    }
+}

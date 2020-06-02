@@ -52,5 +52,9 @@ public abstract class Context {
         return typeDefinition == null ? null : typeDefinition.getType();
     }
 
+    public MethodDefinition resolveMethod(String name) {
+        return (MethodDefinition) classContext.resolve(name);
+    }
+
     public abstract String getContextName();
 }

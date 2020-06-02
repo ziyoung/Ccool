@@ -111,10 +111,10 @@ fragment HEX
     : [0-9a-fA-F]
     ;
 
-WS  : [ \t\r\n] -> skip;
+WS  : [ \t\r\n]+ -> skip;
 
 SINGLE_LINE_COMMENT
-    : '//' ~[\r\n] -> skip
+    : '//' ~[\r\n]* -> skip
     ;
 
 MULTI_LINE_COMMENT

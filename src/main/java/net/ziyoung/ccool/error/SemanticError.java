@@ -16,7 +16,6 @@ public class SemanticError {
         if (name == null) {
             return msg;
         }
-        return String.format("line %d: %d %s", name.getLine(), name.getCharPositionInLine(), msg);
+        return String.format("line %d:%d %s", name.getLine(), name.getCharPositionInLine(), msg);
     }
-
 }

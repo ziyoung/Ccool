@@ -11,8 +11,6 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
             return visitBlockStatement((BlockStatement) node, context);
         } else if (node instanceof ExpressionStatement) {
             return visitExpressionStatement((ExpressionStatement) node, context);
-        } else if (node instanceof MethodDeclaration) {
-            return visitMethodDeclaration((MethodDeclaration) node, context);
         } else if (node instanceof VariableDeclaration) {
             return visitVariableDeclaration((VariableDeclaration) node, context);
         }
@@ -21,11 +19,31 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitExpression(Expression node, C context) {
+        if (node instanceof AssignExpression) {
+            return visitAssignExpression((AssignExpression) node, context);
+        } else if (node instanceof CallExpression) {
+            return visitCallExpression((CallExpression) node, context);
+        } else if (node instanceof VariableExpression) {
+            return visitVariableExpression((VariableExpression) node, context);
+        } else if (node instanceof Literal) {
+            return visitLiteral((Literal) node, context);
+        }
         return null;
     }
 
     @Override
     public R visitLiteral(Literal node, C context) {
+        if (node instanceof BoolLiteral) {
+            return visitBoolLiteral((BoolLiteral) node, context);
+        } else if (node instanceof IntLiteral) {
+            return visitIntLiteral((IntLiteral) node, context);
+        } else if (node instanceof DoubleLiteral) {
+            return visitDoubleLiteral((DoubleLiteral) node, context);
+        } else if (node instanceof StringLiteral) {
+            return visitStringLiteral((StringLiteral) node, context);
+        } else if (node instanceof NullLiteral) {
+            return visitNullLiteral((NullLiteral) node, context);
+        }
         return null;
     }
 
@@ -76,7 +94,12 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitExpressionStatement(ExpressionStatement node, C context) {
-        return null;
+        Expression expression = node.getExpression();
+        // We can ignore this statement.
+        if (expression instanceof VariableExpression) {
+            return null;
+        }
+        return visitExpression(expression, context);
     }
 
     @Override

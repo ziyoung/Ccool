@@ -6,8 +6,12 @@ public class LocalContext extends Context {
     // index of local variable in stack.
     protected int offset;
 
-    public LocalContext(Statement owner, Context enclosingContext, ClassContext classContext, CompilationUnitContext compilationUnitContext) {
-        super(owner, enclosingContext, classContext, compilationUnitContext);
+    public LocalContext(Statement owner, Context enclosingContext, ClassContext classContext) {
+        super(owner, enclosingContext, classContext, classContext.compilationUnitContext);
+        initOffset(enclosingContext);
+    }
+
+    protected void initOffset(Context enclosingContext) {
         if (enclosingContext instanceof LocalContext) {
             offset = ((LocalContext) enclosingContext).getOffset();
         } else {

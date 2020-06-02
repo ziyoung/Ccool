@@ -1,11 +1,14 @@
 package net.ziyoung.ccool.compiler;
 
 import net.ziyoung.ccool.ast.CompilationUnit;
+import net.ziyoung.ccool.error.SemanticError;
 import net.ziyoung.ccool.error.SemanticErrors;
 import net.ziyoung.ccool.parser.CcoolLangParser;
+import net.ziyoung.ccool.phase.AnalysePhase;
 import net.ziyoung.ccool.phase.PreAnalysePhase;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Compiler {
     private CcoolLangParser parser;
@@ -22,29 +25,42 @@ public class Compiler {
             return;
         }
         preAnalyse();
+        analyse();
     }
 
-    private CompilationUnit parse() throws IOException {
+    public CompilationUnit parse() throws IOException {
         parser = new CcoolLangParser(fileName);
         return parser.parse();
     }
 
-    private void preAnalyse() {
+    public void preAnalyse() {
         PreAnalysePhase preAnalysePhase = new PreAnalysePhase();
         preAnalysePhase.visitCompilationUnit(compilationUnit, null);
+    }
+
+    public void analyse() {
+        AnalysePhase analysePhase = new AnalysePhase();
+        analysePhase.visitCompilationUnit(compilationUnit, null);
+    }
+
+    public void setCompilationUnit(CompilationUnit compilationUnit) {
+        this.compilationUnit = compilationUnit;
     }
 
     public boolean parseSuccess() {
         return parser.success();
     }
-    
-   public boolean compileSuccess() {
-        return SemanticErrors.success();
-   }
 
-   public void report() {
+    public boolean compileSuccess() {
+        return SemanticErrors.success();
+    }
+
+    public List<SemanticError> errors() {
+        return SemanticErrors.getErrors();
+    }
+    public void report() {
         SemanticErrors.report();
-   }
+    }
 
     public CompilationUnit getCompilationUnit() {
         return compilationUnit;

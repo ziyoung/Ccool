@@ -19,6 +19,5 @@ public class Main {
             return;
         }
         System.out.println("todo: start to generate class file.");
-
     }
 }
