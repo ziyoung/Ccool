@@ -13,6 +13,7 @@ public class Types {
     public static final int tString = 4;
     public static final int tVoid = 5;
 
+    public static final PrimaryType _invalid = new PrimaryType(tInvalid, "invalid");
     public static final PrimaryType _bool = new PrimaryType(tBool, "bool");
     public static final PrimaryType _int = new PrimaryType(tInt, "int");
     public static final PrimaryType _double = new PrimaryType(tDouble, "double");
@@ -43,6 +44,10 @@ public class Types {
 
     public static TypeName typeContextToTypeName(CcoolParser.TypeContext context) {
         return new TypeName(context.getStart());
+    }
+
+    public static boolean isInvalidType(Type type) {
+        return _invalid.equals(type);
     }
 
     public static boolean isIntType(Type type) {

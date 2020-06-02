@@ -62,6 +62,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
                 Token token1 = parametersContext.ID(index).getSymbol();
                 Parameter parameter = new Parameter(typeName1, token1);
                 parameters.add(parameter);
+                index++;
             }
         }
         BlockStatement blockStatement = visitBlock(ctx.block());

@@ -1,0 +1,12 @@
+class Main {
+    int i = 123;
+    int main(int y) {
+        print(y);
+
+        print(j);
+        print(v1);
+
+        int v1 = 123;
+        print(v1);
+    }
+}

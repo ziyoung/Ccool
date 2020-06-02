@@ -16,9 +16,6 @@ import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
 
 public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
-    private CompilationUnitContext compilationUnitContext;
-    private ClassContext classContext;
-
     @Override
     public Void visitCompilationUnit(CompilationUnit node, Context context) {
         CompilationUnitContext compilationUnitContext = new CompilationUnitContext(node);
@@ -28,7 +25,6 @@ public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
         for (ClassDeclaration declaration : node.getDeclarations()) {
             visitClassDeclaration(declaration, compilationUnitContext);
         }
-        this.compilationUnitContext = compilationUnitContext;
         return null;
     }
 
@@ -40,14 +36,12 @@ public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
         String name = token.getText();
         if (compilationUnitContext.resolve(name) != null) {
             SemanticErrors.error(token, String.format("class %s has been declared", name));
-            return null;
         }
 
         Type type = Types.createUserDefinedType(name);
         compilationUnitContext.defineUserType(token, type);
         ClassContext classContext = new ClassContext(node, compilationUnitContext);
-        this.classContext = classContext;
-
+        node.setContext(classContext);
         for (Statement declaration : node.getMembers()) {
             if (declaration instanceof VariableDeclaration) {
                 visitVariableDeclaration((VariableDeclaration) declaration, classContext);
@@ -55,24 +49,41 @@ public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
                 visitMethodDeclaration((MethodDeclaration) declaration, classContext);
             }
         }
-
-        // Restore classContext.
-        this.classContext = null;
         return null;
     }
 
     @Override
     public Void visitMethodDeclaration(MethodDeclaration node, Context context) {
         boolean invalid = context instanceof ClassContext;
-        if (invalid) {
-            MethodContext methodContext = new MethodContext(node, classContext, compilationUnitContext);
-            for (Parameter parameter : node.getParameters()) {
-                visitParameter(parameter, methodContext);
-            }
-            node.setContext(methodContext);
-        } else {
+        if (!invalid) {
             SemanticErrors.error(node.getToken(), "function is allowed to declare in a Class");
+            return null;
         }
+        Type type = node.getTypeName().resolve(context);
+        if (type == null) {
+            SemanticErrors.errorUndefinedType(node.getTypeName().getToken());
+        }
+        MethodContext methodContext = new MethodContext(node, (ClassContext) context, type);
+        node.setContext(methodContext);
+        for (Parameter parameter : node.getParameters()) {
+            visitParameter(parameter, methodContext);
+        }
+        return null;
+    }
+
+    @Override
+    public Void visitParameter(Parameter node, Context context) {
+        MethodContext methodContext = (MethodContext) context;
+        TypeName typeName = node.getTypeName();
+        Type type = typeName.resolve(methodContext);
+        Token token = node.getToken();
+        String parameterName = token.getText();
+        if (type == null) {
+            SemanticErrors.errorUndefinedType(typeName.getToken());
+        } else if (methodContext.resolveParameter(parameterName) != null) {
+            SemanticErrors.errorReDefine(token, "parameter");
+        }
+        methodContext.defineParameter(type, parameterName);
         return null;
     }
 
@@ -84,12 +95,10 @@ public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
             TypeName typeName = node.getTypeName();
             Type type = typeName.resolve(context);
             if (type == null) {
-                SemanticErrors.error(typeName.getToken(), String.format("type %s is not defined", typeName.getName()));
-            } else {
-                int offset = classContext.nextOffset();
-                VariableDefinition variableDefinition = new VariableDefinition(type, offset);
-                classContext.define(node.getToken(), variableDefinition);
+                SemanticErrors.errorUndefinedType(typeName.getToken());
             }
+            FieldDefinition fieldDefinition = new FieldDefinition(type, node.getToken().getText());
+            classContext.define(node.getToken(), fieldDefinition);
         }
         return null;
     }

@@ -1,26 +1,18 @@
 package net.ziyoung.ccool.checker;
 
-import net.ziyoung.ccool.compiler.Compiler;
+import net.ziyoung.ccool.ast.expression.Expression;
+import net.ziyoung.ccool.context.MethodContext;
+import net.ziyoung.ccool.context.VariableDefinition;
+
+import java.util.List;
 
 public class Checker {
-    private final Compiler compiler;
-
-    public Checker(Compiler compiler) {
-        this.compiler = compiler;
+    public static boolean checkCallArguments(MethodContext methodContext, List<Expression> expressionList) {
+        List<VariableDefinition> parameters = methodContext.getParameters();
+        int parameterSize = parameters.size();
+        int argumentSize = expressionList.size();
+//        if (parameterSize != argumentSize) {
+//        }
+        return true;
     }
-
-//    public void checkMainFunction(Symbol symbol) {
-//        if (symbol == null) {
-//            compiler.error(null, "No main function in global.");
-//            return;
-//        }
-//        if (!(symbol instanceof FunctionScope)) {
-//            compiler.error(null, "'main' is not a function.");
-//            return;
-//        }
-//        FunctionScope functionSymbol = (FunctionScope) symbol;
-//        if (!Types.isIntType(functionSymbol.getType())) {
-//            compiler.error(functionSymbol.getToken(), "return type of main is not int.");
-//        }
-//    }
 }
