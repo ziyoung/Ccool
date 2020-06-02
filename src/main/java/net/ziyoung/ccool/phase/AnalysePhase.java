@@ -15,6 +15,9 @@ import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // For a expression, we expect to get type after visiting it.
 class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
     @Override
@@ -41,9 +44,13 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
             if (methodDefinition == null) {
                 SemanticErrors.errorUndefinedMethod(token);
             } else {
-
+                List<Expression> arguments = node.getArguments();
+                List<Type> types = new ArrayList<>(arguments.size());
+                for (int i = 0; i < arguments.size(); i++) {
+                    types.set(i, visitExpression(arguments.get(i), context));
+                }
+                checkArgumentType(token, methodDefinition, types);
             }
-
             return methodDefinition == null ? null : methodDefinition.getReturnType();
         }
         return null;
@@ -79,6 +86,24 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
         // FIXME: which type null represents?
         return null;
     }
+
+    public void checkArgumentType(Token token, MethodDefinition methodDefinition, List<Type> types) {
+        List<VariableDefinition> parameters = methodDefinition.getParameters();
+        int parameterSize = parameters.size();
+        int argumentSize = types.size();
+        if (parameterSize != argumentSize) {
+            SemanticErrors.error(token, String.format("function %s needs %d parameters but gets %d", token.getText(), parameterSize, argumentSize));
+            return;
+        }
+        for (int i = 0; i < argumentSize; i++) {
+            Type type = parameters.get(i).getType();
+            Type type1 = types.get(i);
+            if (type != null && type1 != null && !type1.equals(type)) {
+                SemanticErrors.error(token, String.format("for argument %d, expected type is %s but got %s", i, type, type1));
+            }
+        }
+    }
+
 }
 
 // AnalysePhase just visits statements.

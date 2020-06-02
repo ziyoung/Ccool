@@ -7,7 +7,7 @@ import net.ziyoung.ccool.context.VariableDefinition;
 import java.util.List;
 
 public class Checker {
-    public static boolean checkCallArguments(MethodContext methodContext, List<Expression> expressionList) {
+    public static boolean checkArgumentsType(MethodContext methodContext, List<Expression> expressionList) {
         List<VariableDefinition> parameters = methodContext.getParameters();
         int parameterSize = parameters.size();
         int argumentSize = expressionList.size();
