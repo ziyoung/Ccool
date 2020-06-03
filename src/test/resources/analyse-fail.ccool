@@ -2,7 +2,9 @@ class Main {
     int i = 123;
     int main(int y) {
         print(y);
+        print(i);
 
+        // report error here
         print(j);
         print(v1);
 

@@ -3,7 +3,9 @@ package net.ziyoung.ccool.context;
 import net.ziyoung.ccool.ast.statement.ClassDeclaration;
 import org.antlr.v4.runtime.Token;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ClassContext extends Context {
@@ -13,6 +15,10 @@ public class ClassContext extends Context {
     public ClassContext(ClassDeclaration owner, CompilationUnitContext compilationUnitContext) {
         super(owner, compilationUnitContext, null, compilationUnitContext);
         this.classContext = this;
+    }
+
+    public List<FieldDefinition> getFields() {
+        return new ArrayList<>(fields.values());
     }
 
     @Override

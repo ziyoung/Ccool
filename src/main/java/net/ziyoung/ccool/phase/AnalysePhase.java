@@ -24,8 +24,6 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
     public Type visitVariableExpression(VariableExpression node, Context context) {
         Token token = node.getToken();
         Definition definition = context.resolve(token.getText());
-        System.out.println("my visitor --> visitVariableExpression");
-        System.out.println(token.getText());
         if (definition == null) {
             SemanticErrors.errorUndefinedVariable(token);
             return null;
@@ -38,7 +36,6 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
         Expression expression = node.getLhs();
         // FIXME: more features need to be added.
         if (expression instanceof VariableExpression) {
-            System.out.println("visitCallExpression --> visitCallExpression");
             Token token = ((VariableExpression) expression).getToken();
             MethodDefinition methodDefinition = context.resolveMethod(token.getText());
             if (methodDefinition == null) {
@@ -46,10 +43,10 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
             } else {
                 List<Expression> arguments = node.getArguments();
                 List<Type> types = new ArrayList<>(arguments.size());
-                for (int i = 0; i < arguments.size(); i++) {
-                    types.set(i, visitExpression(arguments.get(i), context));
+                for (Expression argument : arguments) {
+                    types.add(visitExpression(argument, context));
                 }
-                checkArgumentType(token, methodDefinition, types);
+                methodDefinition.checkCallArguments(token, types);
             }
             return methodDefinition == null ? null : methodDefinition.getReturnType();
         }
@@ -86,24 +83,6 @@ class ExpressionVisitor extends AstBaseVisitor<Type, Context> {
         // FIXME: which type null represents?
         return null;
     }
-
-    public void checkArgumentType(Token token, MethodDefinition methodDefinition, List<Type> types) {
-        List<VariableDefinition> parameters = methodDefinition.getParameters();
-        int parameterSize = parameters.size();
-        int argumentSize = types.size();
-        if (parameterSize != argumentSize) {
-            SemanticErrors.error(token, String.format("function %s needs %d parameters but gets %d", token.getText(), parameterSize, argumentSize));
-            return;
-        }
-        for (int i = 0; i < argumentSize; i++) {
-            Type type = parameters.get(i).getType();
-            Type type1 = types.get(i);
-            if (type != null && type1 != null && !type1.equals(type)) {
-                SemanticErrors.error(token, String.format("for argument %d, expected type is %s but got %s", i, type, type1));
-            }
-        }
-    }
-
 }
 
 // AnalysePhase just visits statements.
@@ -143,6 +122,7 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     @Override
     public Void visitBlockStatement(BlockStatement node, Context context) {
         LocalContext localContext = new LocalContext(node, context, this.classContext);
+        node.setContext(localContext);
         for (Statement statement : node.getStatements()) {
             visitStatement(statement, localContext);
         }
@@ -152,18 +132,23 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     @Override
     public Void visitVariableDeclaration(VariableDeclaration node, Context context) {
         TypeName typeName = node.getTypeName();
-        Token token = typeName.getToken();
+        Token typeNameToken = typeName.getToken();
         Type type = typeName.resolve(context);
         if (type == null) {
-            SemanticErrors.errorUndefinedType(token);
+            SemanticErrors.errorUndefinedType(typeNameToken);
         }
         Expression expression = node.getExpression();
         if (expression != null) {
             Type type1 = expressionVisitor.visitExpression(node.getExpression(), context);
             if (type != null && type1 != null && !type.equals(type1)) {
-                SemanticErrors.errorUnmatchedType(token, type, type1);
+                SemanticErrors.errorUnmatchedType(typeNameToken, type, type1);
             }
         }
+        Token token = node.getToken();
+        int offset = ((LocalContext) context).nextOffset();
+        VariableDefinition variableDefinition = new VariableDefinition(type, offset);
+        context.define(token, variableDefinition);
+        System.out.printf("variable %s is defined and type is %s\n", token.getText(), type);
         return null;
     }
 

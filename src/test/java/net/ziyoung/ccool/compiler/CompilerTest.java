@@ -27,7 +27,7 @@ public class CompilerTest {
         CompilationUnit compilationUnit = assertDoesNotThrow(compiler::parse);
         compiler.setCompilationUnit(compilationUnit);
         compiler.preAnalyse();
-//        compiler.report();
+        compiler.report();
         assertFalse(compiler.compileSuccess());
 
         String[] messages = new String[]{
@@ -35,12 +35,7 @@ public class CompilerTest {
                 "type t1 is not defined",
                 "parameter v0 has been defined"
         };
-        List<SemanticError> errors = compiler.errors();
-        assertEquals(messages.length, errors.size());
-        for (int i = 0; i < messages.length; i++) {
-            assertNotNull(compiler.errors().get(i));
-            assertTrue(errors.get(i).toString().contains(messages[i]));
-        }
+        checkErrorMessages(messages, compiler.errors());
     }
 
     @Test
@@ -53,5 +48,22 @@ public class CompilerTest {
         compiler.analyse();
         compiler.report();
         assertFalse(compiler.compileSuccess());
+
+        String printMessage = "print's argument 0 expected primary-type";
+        String[] messages = new String[]{
+                "variable j is not defined",
+                printMessage,
+                "variable v1 is not defined",
+                printMessage
+        };
+        checkErrorMessages(messages, compiler.errors());
+    }
+
+    private static void checkErrorMessages(String[] messages, List<SemanticError> errors) {
+        assertEquals(messages.length, errors.size());
+        for (int i = 0; i < messages.length; i++) {
+            assertNotNull(errors.get(i));
+            assertTrue(errors.get(i).toString().contains(messages[i]));
+        }
     }
 }

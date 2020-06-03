@@ -1,6 +1,6 @@
 class Main {
-    int main() {
-        string msg = "Hello, World\n";
+    void main() {
+        string msg = "Hello, World!";
         int i = 123;
         print(i);
         print(msg);

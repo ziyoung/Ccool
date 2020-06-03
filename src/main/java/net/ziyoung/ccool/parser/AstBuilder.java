@@ -31,7 +31,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
 
     @Override
     public ClassDeclaration visitClassDefinition(CcoolParser.ClassDefinitionContext ctx) {
-        Token token = ctx.ID().getSymbol();
+        Token token = ctx.CLASSID().getSymbol();
         List<Statement> statements = new ArrayList<>();
         for (CcoolParser.ClassMemberContext classMemberContext : ctx.classMember()) {
             Statement declaration = null;
