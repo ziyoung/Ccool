@@ -18,6 +18,7 @@ public class Main {
             compiler.report();
             return;
         }
-        System.out.println("todo: start to generate class file.");
+        System.out.println("==== start to generate class file ====");
+        compiler.generate();
     }
 }

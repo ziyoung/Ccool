@@ -1,7 +1,7 @@
 package net.ziyoung.ccool.type;
 
 public class PrimaryType extends Type {
-    public PrimaryType(int index, String name) {
+    protected PrimaryType(int index, String name) {
         super(index, name);
     }
 

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class MethodContext extends LocalContext {
     private final Type returnType;
-    private final Map<String, VariableDefinition> definitionMap = new LinkedHashMap<>();
+    private final Map<String, VariableDefinition> parameterDefinitions = new LinkedHashMap<>();
 
     public MethodContext(MethodDeclaration owner, ClassContext classContext, Type returnType) {
         super(owner, classContext, classContext);
@@ -22,15 +22,24 @@ public class MethodContext extends LocalContext {
     }
 
     public List<VariableDefinition> getParameters() {
-        return new ArrayList<>(definitionMap.values());
+        return new ArrayList<>(parameterDefinitions.values());
     }
 
     public VariableDefinition resolveParameter(String name) {
-        return definitionMap.get(name);
+        return parameterDefinitions.get(name);
     }
 
     public void defineParameter(Type type, String name) {
         int offset = this.nextOffset();
-        definitionMap.put(name, new VariableDefinition(type, offset));
+        parameterDefinitions.put(name, new VariableDefinition(type, offset));
+    }
+
+    @Override
+    public Definition resolve(String name) {
+        VariableDefinition variableDefinition = resolveParameter(name);
+        if (variableDefinition != null) {
+            return variableDefinition;
+        }
+        return this.classContext.resolve(name);
     }
 }

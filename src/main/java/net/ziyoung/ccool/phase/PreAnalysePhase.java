@@ -9,7 +9,6 @@ import net.ziyoung.ccool.ast.statement.Statement;
 import net.ziyoung.ccool.ast.statement.VariableDeclaration;
 import net.ziyoung.ccool.context.*;
 import net.ziyoung.ccool.error.SemanticErrors;
-import net.ziyoung.ccool.type.PrimaryType;
 import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
@@ -19,9 +18,6 @@ public class PreAnalysePhase extends AstBaseVisitor<Void, Context> {
     @Override
     public Void visitCompilationUnit(CompilationUnit node, Context context) {
         CompilationUnitContext compilationUnitContext = new CompilationUnitContext(node);
-        for (PrimaryType primaryType : Types.getPrimaryTypes()) {
-            compilationUnitContext.definePrimaryType(primaryType);
-        }
         for (ClassDeclaration declaration : node.getDeclarations()) {
             visitClassDeclaration(declaration, compilationUnitContext);
         }

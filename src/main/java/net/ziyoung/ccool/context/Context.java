@@ -56,5 +56,9 @@ public abstract class Context {
         return (MethodDefinition) classContext.resolve(name);
     }
 
+    public ClassContext getClassContext() {
+        return classContext;
+    }
+
     public abstract String getContextName();
 }

@@ -24,15 +24,13 @@ public class Types {
             _bool, _int, _double, _string, _void
     };
 
-    public static final Map<String, PrimaryType> primaryTypeMap = Map.of(
-            "bool", _bool,
-            "int", _int,
-            "double", _double,
-            "string", _string,
-            "void", _void
+    private static final Map<Integer, String> typeDescriptorMap = Map.of(
+            tUser, "Ljava/lang/Object",
+            tBool, "B",
+            tDouble, "D",
+            tString, "Ljava/lang/String",
+            tVoid, "V"
     );
-
-//    public static final Map<String, Type> typeReferenceMap = new LinkedHashMap<>();
 
     public static PrimaryType[] getPrimaryTypes() {
         return primaryTypes;
@@ -46,11 +44,23 @@ public class Types {
         return new TypeName(context.getStart());
     }
 
+    public static String getTypeDescriptor(Type type) {
+        int index = type.getIndex();
+        if (typeDescriptorMap.containsKey(index)) {
+            return typeDescriptorMap.get(index);
+        }
+        throw new RuntimeException(String.format("unsupported type %s", type.getName()));
+    }
+
     public static boolean isInvalidType(Type type) {
         return _invalid.equals(type);
     }
 
     public static boolean isIntType(Type type) {
         return _int.equals(type);
+    }
+
+    public static boolean isStringType(Type type) {
+        return _string.equals(type);
     }
 }

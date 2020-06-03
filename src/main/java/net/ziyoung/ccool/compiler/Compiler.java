@@ -5,9 +5,13 @@ import net.ziyoung.ccool.error.SemanticError;
 import net.ziyoung.ccool.error.SemanticErrors;
 import net.ziyoung.ccool.parser.CcoolLangParser;
 import net.ziyoung.ccool.phase.AnalysePhase;
+import net.ziyoung.ccool.phase.GeneratePhase;
 import net.ziyoung.ccool.phase.PreAnalysePhase;
+import org.objectweb.asm.ClassWriter;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 public class Compiler {
@@ -17,6 +21,7 @@ public class Compiler {
 
     public Compiler(String fileName) {
         this.fileName = fileName;
+        SemanticErrors.startRecord();
     }
 
     public void compile() throws IOException {
@@ -43,6 +48,17 @@ public class Compiler {
         analysePhase.visitCompilationUnit(compilationUnit, null);
     }
 
+    public void generate() throws IOException {
+        ClassWriter classWriter = new ClassWriter(0);
+        GeneratePhase generatePhase = new GeneratePhase();
+        generatePhase.visitCompilationUnit(compilationUnit, classWriter);
+        classWriter.visitEnd();
+
+        OutputStream outputStream = new FileOutputStream(fileName + ".class");
+        outputStream.write(classWriter.toByteArray());
+        outputStream.close();
+    }
+
     public void setCompilationUnit(CompilationUnit compilationUnit) {
         this.compilationUnit = compilationUnit;
     }
@@ -58,6 +74,7 @@ public class Compiler {
     public List<SemanticError> errors() {
         return SemanticErrors.getErrors();
     }
+
     public void report() {
         SemanticErrors.report();
     }
