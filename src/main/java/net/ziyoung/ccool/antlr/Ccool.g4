@@ -9,11 +9,11 @@ compilationUnit
     ;
 
 classDefinition
-    : 'class' ID superClass? '{' classMember+ '}'
+    : 'class' CLASSID superClass? '{' classMember+ '}'
     ;
 
 superClass
-    : 'extend' ID
+    : 'extend' CLASSID
     ;
 
 classMember
@@ -94,6 +94,10 @@ NULL : 'null'
 
 STRING
     : '"' (ESC | ~["\\])* '"'
+    ;
+
+CLASSID
+    : [A-Z](LETTER | [0-9])*
     ;
 
 ID  : LETTER (LETTER | [0-9])*

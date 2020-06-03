@@ -19,7 +19,8 @@ public class CcoolParser extends Parser {
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, INT=15, DOUBLE=16, BOOL=17, 
-		NULL=18, STRING=19, ID=20, WS=21, SINGLE_LINE_COMMENT=22, MULTI_LINE_COMMENT=23;
+		NULL=18, STRING=19, CLASSID=20, ID=21, WS=22, SINGLE_LINE_COMMENT=23, 
+		MULTI_LINE_COMMENT=24;
 	public static final int
 		RULE_compilationUnit = 0, RULE_classDefinition = 1, RULE_superClass = 2, 
 		RULE_classMember = 3, RULE_methodDeclaration = 4, RULE_formalParameters = 5, 
@@ -45,8 +46,8 @@ public class CcoolParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, "INT", "DOUBLE", "BOOL", "NULL", "STRING", "ID", "WS", 
-			"SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT"
+			null, null, null, "INT", "DOUBLE", "BOOL", "NULL", "STRING", "CLASSID", 
+			"ID", "WS", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -161,7 +162,7 @@ public class CcoolParser extends Parser {
 	}
 
 	public static class ClassDefinitionContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
+		public TerminalNode CLASSID() { return getToken(CcoolParser.CLASSID, 0); }
 		public SuperClassContext superClass() {
 			return getRuleContext(SuperClassContext.class,0);
 		}
@@ -200,7 +201,7 @@ public class CcoolParser extends Parser {
 			setState(31);
 			match(T__0);
 			setState(32);
-			match(ID);
+			match(CLASSID);
 			setState(34);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -243,7 +244,7 @@ public class CcoolParser extends Parser {
 	}
 
 	public static class SuperClassContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
+		public TerminalNode CLASSID() { return getToken(CcoolParser.CLASSID, 0); }
 		public SuperClassContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -272,7 +273,7 @@ public class CcoolParser extends Parser {
 			setState(44);
 			match(T__3);
 			setState(45);
-			match(ID);
+			match(CLASSID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1018,7 +1019,7 @@ public class CcoolParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\31|\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\32|\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
 		"\f\t\f\4\r\t\r\4\16\t\16\3\2\6\2\36\n\2\r\2\16\2\37\3\3\3\3\3\3\5\3%\n"+
 		"\3\3\3\3\3\6\3)\n\3\r\3\16\3*\3\3\3\3\3\4\3\4\3\4\3\5\3\5\5\5\64\n\5\3"+
@@ -1027,7 +1028,7 @@ public class CcoolParser extends Parser {
 		"\3\n\3\n\5\nY\n\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\5\13b\n\13\3\f\3\f"+
 		"\3\f\5\fg\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\fp\n\f\3\r\3\r\3\r\7\ru\n"+
 		"\r\f\r\16\rx\13\r\3\16\3\16\3\16\2\2\17\2\4\6\b\n\f\16\20\22\24\26\30"+
-		"\32\2\4\4\2\n\16\26\26\3\2\21\25\2}\2\35\3\2\2\2\4!\3\2\2\2\6.\3\2\2\2"+
+		"\32\2\4\4\2\n\16\27\27\3\2\21\25\2}\2\35\3\2\2\2\4!\3\2\2\2\6.\3\2\2\2"+
 		"\b\63\3\2\2\2\n\65\3\2\2\2\f>\3\2\2\2\16I\3\2\2\2\20K\3\2\2\2\22T\3\2"+
 		"\2\2\24a\3\2\2\2\26o\3\2\2\2\30q\3\2\2\2\32y\3\2\2\2\34\36\5\4\3\2\35"+
 		"\34\3\2\2\2\36\37\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \3\3\2\2\2!\"\7\3"+
@@ -1035,16 +1036,16 @@ public class CcoolParser extends Parser {
 		"\5\b\5\2(\'\3\2\2\2)*\3\2\2\2*(\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\5\2\2"+
 		"-\5\3\2\2\2./\7\6\2\2/\60\7\26\2\2\60\7\3\2\2\2\61\64\5\22\n\2\62\64\5"+
 		"\n\6\2\63\61\3\2\2\2\63\62\3\2\2\2\64\t\3\2\2\2\65\66\5\16\b\2\66\67\7"+
-		"\26\2\2\679\7\7\2\28:\5\f\7\298\3\2\2\29:\3\2\2\2:;\3\2\2\2;<\7\b\2\2"+
-		"<=\5\20\t\2=\13\3\2\2\2>?\5\16\b\2?F\7\26\2\2@A\7\t\2\2AB\5\16\b\2BC\7"+
-		"\26\2\2CE\3\2\2\2D@\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\r\3\2\2\2H"+
+		"\27\2\2\679\7\7\2\28:\5\f\7\298\3\2\2\29:\3\2\2\2:;\3\2\2\2;<\7\b\2\2"+
+		"<=\5\20\t\2=\13\3\2\2\2>?\5\16\b\2?F\7\27\2\2@A\7\t\2\2AB\5\16\b\2BC\7"+
+		"\27\2\2CE\3\2\2\2D@\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\r\3\2\2\2H"+
 		"F\3\2\2\2IJ\t\2\2\2J\17\3\2\2\2KO\7\4\2\2LN\5\24\13\2ML\3\2\2\2NQ\3\2"+
 		"\2\2OM\3\2\2\2OP\3\2\2\2PR\3\2\2\2QO\3\2\2\2RS\7\5\2\2S\21\3\2\2\2TU\5"+
-		"\16\b\2UX\7\26\2\2VW\7\17\2\2WY\5\26\f\2XV\3\2\2\2XY\3\2\2\2YZ\3\2\2\2"+
+		"\16\b\2UX\7\27\2\2VW\7\17\2\2WY\5\26\f\2XV\3\2\2\2XY\3\2\2\2YZ\3\2\2\2"+
 		"Z[\7\20\2\2[\23\3\2\2\2\\b\5\20\t\2]b\5\22\n\2^_\5\26\f\2_`\7\20\2\2`"+
-		"b\3\2\2\2a\\\3\2\2\2a]\3\2\2\2a^\3\2\2\2b\25\3\2\2\2cd\7\26\2\2df\7\7"+
+		"b\3\2\2\2a\\\3\2\2\2a]\3\2\2\2a^\3\2\2\2b\25\3\2\2\2cd\7\27\2\2df\7\7"+
 		"\2\2eg\5\30\r\2fe\3\2\2\2fg\3\2\2\2gh\3\2\2\2hp\7\b\2\2ip\5\32\16\2jp"+
-		"\7\26\2\2kl\7\7\2\2lm\5\26\f\2mn\7\b\2\2np\3\2\2\2oc\3\2\2\2oi\3\2\2\2"+
+		"\7\27\2\2kl\7\7\2\2lm\5\26\f\2mn\7\b\2\2np\3\2\2\2oc\3\2\2\2oi\3\2\2\2"+
 		"oj\3\2\2\2ok\3\2\2\2p\27\3\2\2\2qv\5\26\f\2rs\7\t\2\2su\5\26\f\2tr\3\2"+
 		"\2\2ux\3\2\2\2vt\3\2\2\2vw\3\2\2\2w\31\3\2\2\2xv\3\2\2\2yz\t\3\2\2z\33"+
 		"\3\2\2\2\16\37$*\639FOXafov";

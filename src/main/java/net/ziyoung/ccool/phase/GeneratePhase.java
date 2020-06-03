@@ -153,7 +153,7 @@ public class GeneratePhase extends AstBaseVisitor<Void, ClassWriter> {
         MethodVisitor methodVisitor = classWriter.visitMethod(
                 ACC_PUBLIC + ACC_STATIC,
                 name,
-                "([Ljava/lang/String;)V",
+                "()V",
                 null,
                 null
         );
