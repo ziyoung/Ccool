@@ -59,6 +59,20 @@ public class CompilerTest {
         checkErrorMessages(messages, compiler.errors());
     }
 
+    @Test
+    @DisplayName("analyse local variables size")
+    void analyseLocalsSize() {
+        Compiler compiler = new Compiler("src/test/resources/locals-size.ccool");
+        CompilationUnit compilationUnit = assertDoesNotThrow(compiler::parse);
+        compiler.setCompilationUnit(compilationUnit);
+        compiler.preAnalyse();
+        compiler.analyse();
+
+        int localsSize = compiler.getAnalysePhase().getLocalsSize();
+        // 5 local variables.
+        assertEquals(localsSize, 5);
+    }
+
     private static void checkErrorMessages(String[] messages, List<SemanticError> errors) {
         assertEquals(messages.length, errors.size());
         for (int i = 0; i < messages.length; i++) {

@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.Token;
 public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     private final ExpressionTypeResolver typeResolver;
     private ClassContext classContext;
+    private int localsSize;
 
     public AnalysePhase() {
         typeResolver = new ExpressionTypeResolver();
@@ -44,7 +45,10 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     @Override
     public Void visitMethodDeclaration(MethodDeclaration node, Context context) {
         MethodContext methodContext = node.getContext();
+        // Reset local variables size.
+        restoreLocalsSize(methodContext.getOffset());
         visitBlockStatement(node.getBody(), methodContext);
+        methodContext.setLocalsSize(localsSize);
         return null;
     }
 
@@ -66,6 +70,8 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
         Token token = node.getToken();
         int offset = ((LocalContext) context).nextOffset();
         VariableDefinition variableDefinition = new VariableDefinition(type, offset);
+        // Update local variables size.
+        setLocalsSize(offset + 1);
         context.define(token, variableDefinition);
         return null;
     }
@@ -85,5 +91,19 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     public Void visitExpression(Expression node, Context context) {
         typeResolver.visitExpression(node, context);
         return null;
+    }
+
+    private void setLocalsSize(int size) {
+        if (size > localsSize) {
+            localsSize = size;
+        }
+    }
+
+    public int getLocalsSize() {
+        return localsSize;
+    }
+
+    private void restoreLocalsSize(int size) {
+        localsSize = size;
     }
 }
