@@ -1,4 +1,4 @@
-package net.ziyoung.ccool.context.builtin;
+package net.ziyoung.ccool.builtin;
 
 import net.ziyoung.ccool.context.MethodDefinition;
 

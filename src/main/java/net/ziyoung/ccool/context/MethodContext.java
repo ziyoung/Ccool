@@ -9,12 +9,21 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodContext extends LocalContext {
+    private int localsSize;
     private final Type returnType;
     private final Map<String, VariableDefinition> parameterDefinitions = new LinkedHashMap<>();
 
     public MethodContext(MethodDeclaration owner, ClassContext classContext, Type returnType) {
         super(owner, classContext, classContext);
         this.returnType = returnType;
+    }
+
+    public int getLocalsSize() {
+        return localsSize;
+    }
+
+    public void setLocalsSize(int localsSize) {
+        this.localsSize = localsSize;
     }
 
     public Type getReturnType() {
@@ -30,7 +39,7 @@ public class MethodContext extends LocalContext {
     }
 
     public void defineParameter(Type type, String name) {
-        int offset = this.nextOffset();
+        int offset = nextOffset();
         parameterDefinitions.put(name, new VariableDefinition(type, offset));
     }
 
@@ -40,6 +49,6 @@ public class MethodContext extends LocalContext {
         if (variableDefinition != null) {
             return variableDefinition;
         }
-        return this.classContext.resolve(name);
+        return classContext.resolve(name);
     }
 }

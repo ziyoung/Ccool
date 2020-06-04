@@ -56,6 +56,10 @@ public abstract class Context {
         return (MethodDefinition) classContext.resolve(name);
     }
 
+    public Node getOwner() {
+        return owner;
+    }
+
     public ClassContext getClassContext() {
         return classContext;
     }

@@ -109,6 +109,9 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitBlockStatement(BlockStatement node, C context) {
+        for (Statement statement : node.getStatements()) {
+            visitStatement(statement, context);
+        }
         return null;
     }
 

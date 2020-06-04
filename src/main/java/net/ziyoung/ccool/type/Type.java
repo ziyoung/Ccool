@@ -26,6 +26,30 @@ public class Type {
         return false;
     }
 
+    public boolean isInvalid() {
+        return index == Types.tInvalid;
+    }
+
+    public boolean isBool() {
+        return index == Types.tBool;
+    }
+
+    public boolean isInt() {
+        return index == Types.tInt;
+    }
+
+    public boolean isDouble() {
+        return index == Types.tDouble;
+    }
+
+    public boolean isString() {
+        return index == Types.tString;
+    }
+
+    public boolean isVoid() {
+        return index == Types.tVoid;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

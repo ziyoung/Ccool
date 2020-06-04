@@ -1,8 +1,8 @@
 package net.ziyoung.ccool.context;
 
 import net.ziyoung.ccool.ast.CompilationUnit;
-import net.ziyoung.ccool.context.builtin.Builtin;
-import net.ziyoung.ccool.context.builtin.BuiltinFunction;
+import net.ziyoung.ccool.builtin.Builtin;
+import net.ziyoung.ccool.builtin.BuiltinFunction;
 import net.ziyoung.ccool.type.PrimaryType;
 import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.type.Types;
