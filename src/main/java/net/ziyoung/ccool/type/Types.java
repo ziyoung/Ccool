@@ -25,10 +25,11 @@ public class Types {
     };
 
     private static final Map<Integer, String> typeDescriptorMap = Map.of(
-            tUser, "Ljava/lang/Object",
+            tUser, "Ljava/lang/Object;",
             tBool, "B",
+            tInt, "I",
             tDouble, "D",
-            tString, "Ljava/lang/String",
+            tString, "Ljava/lang/String;",
             tVoid, "V"
     );
 

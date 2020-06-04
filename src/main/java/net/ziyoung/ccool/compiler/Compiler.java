@@ -54,7 +54,9 @@ public class Compiler {
         generatePhase.visitCompilationUnit(compilationUnit, classWriter);
         classWriter.visitEnd();
 
-        OutputStream outputStream = new FileOutputStream(fileName + ".class");
+        String name = fileName.replace(".ccool", "") + ".class";
+        System.out.printf("name is %s\n", name);
+        OutputStream outputStream = new FileOutputStream(name);
         outputStream.write(classWriter.toByteArray());
         outputStream.close();
     }
