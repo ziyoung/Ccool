@@ -60,7 +60,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
             for (CcoolParser.TypeContext typeContext : parametersContext.type()) {
                 TypeName typeName1 = Types.typeContextToTypeName(typeContext);
                 Token token1 = parametersContext.ID(index).getSymbol();
-                Parameter parameter = new Parameter(typeName1, token1);
+                Parameter parameter = new Parameter(token1, typeName1);
                 parameters.add(parameter);
                 index++;
             }
@@ -117,7 +117,7 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
                 arguments.add(expression);
             }
         }
-        return new CallExpression(function, arguments);
+        return new CallExpression(token, function, arguments);
     }
 
     @Override

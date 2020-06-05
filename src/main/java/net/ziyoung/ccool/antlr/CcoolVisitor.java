@@ -71,12 +71,33 @@ public interface CcoolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(CcoolParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdd(CcoolParser.AddContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Call}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitCall(CcoolParser.CallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Group}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGroup(CcoolParser.GroupContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Negative}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNegative(CcoolParser.NegativeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Liter}
 	 * labeled alternative in {@link CcoolParser#expression}.
@@ -92,12 +113,33 @@ public interface CcoolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar(CcoolParser.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Parens}
+	 * Visit a parse tree produced by the {@code Multiply}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParens(CcoolParser.ParensContext ctx);
+	T visitMultiply(CcoolParser.MultiplyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(CcoolParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Division}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivision(CcoolParser.DivisionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMinus(CcoolParser.MinusContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CcoolParser#expressionList}.
 	 * @param ctx the parse tree

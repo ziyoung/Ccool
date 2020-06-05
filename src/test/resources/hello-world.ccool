@@ -1,8 +1,14 @@
 class Main {
     void main() {
+        // primary types
         string msg = "Hello, World!";
         int i = 123;
         print(i);
         print(msg);
+
+        bool b = false;
+        print(b);
+        double d = 123.4;
+        print(d);
     }
 }

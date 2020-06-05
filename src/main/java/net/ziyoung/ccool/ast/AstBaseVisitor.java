@@ -1,6 +1,10 @@
 package net.ziyoung.ccool.ast;
 
 import net.ziyoung.ccool.ast.expression.*;
+import net.ziyoung.ccool.ast.expression.arithmetic.AddExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.DivisionExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.MinusExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.MultiplyExpression;
 import net.ziyoung.ccool.ast.expression.literal.*;
 import net.ziyoung.ccool.ast.statement.*;
 
@@ -84,6 +88,36 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitCallExpression(CallExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitNegativeExpression(NegativeExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitMultiplyExpression(MultiplyExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitDivisionExpression(DivisionExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitAddExpression(AddExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitMinusExpression(MinusExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitGroupExpression(GroupExpression node, C context) {
         return null;
     }
 

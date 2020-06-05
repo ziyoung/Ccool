@@ -18,7 +18,6 @@ public class Compiler {
     private CcoolLangParser parser;
     private final String fileName;
     private CompilationUnit compilationUnit;
-    private AnalysePhase analysePhase;
 
     public Compiler(String fileName) {
         this.fileName = fileName;
@@ -40,13 +39,12 @@ public class Compiler {
     }
 
     public void preAnalyse() {
-        // FIXME: It's hard to test.
         PreAnalysePhase preAnalysePhase = new PreAnalysePhase();
         preAnalysePhase.visitCompilationUnit(compilationUnit, null);
     }
 
     public void analyse() {
-        analysePhase = new AnalysePhase();
+        AnalysePhase analysePhase = new AnalysePhase();
         analysePhase.visitCompilationUnit(compilationUnit, null);
     }
 
@@ -57,14 +55,9 @@ public class Compiler {
         classWriter.visitEnd();
 
         String name = fileName.replace(".ccool", "") + ".class";
-        System.out.printf("name is %s\n", name);
         OutputStream outputStream = new FileOutputStream(name);
         outputStream.write(classWriter.toByteArray());
         outputStream.close();
-    }
-
-    public void setCompilationUnit(CompilationUnit compilationUnit) {
-        this.compilationUnit = compilationUnit;
     }
 
     public boolean parseSuccess() {
@@ -85,9 +78,5 @@ public class Compiler {
 
     public CompilationUnit getCompilationUnit() {
         return compilationUnit;
-    }
-
-    public AnalysePhase getAnalysePhase() {
-        return analysePhase;
     }
 }

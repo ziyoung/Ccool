@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodContext extends LocalContext {
+    private int stackSize;
     private int localsSize;
     private final Type returnType;
     private final Map<String, VariableDefinition> parameterDefinitions = new LinkedHashMap<>();
@@ -16,6 +17,14 @@ public class MethodContext extends LocalContext {
     public MethodContext(MethodDeclaration owner, ClassContext classContext, Type returnType) {
         super(owner, classContext, classContext);
         this.returnType = returnType;
+    }
+
+    public int getStackSize() {
+        return stackSize;
+    }
+
+    public void setStackSize(int stackSize) {
+        this.stackSize = stackSize;
     }
 
     public int getLocalsSize() {
@@ -39,7 +48,7 @@ public class MethodContext extends LocalContext {
     }
 
     public void defineParameter(Type type, String name) {
-        int offset = nextOffset();
+        int offset = nextOffset(type);
         parameterDefinitions.put(name, new VariableDefinition(type, offset));
     }
 

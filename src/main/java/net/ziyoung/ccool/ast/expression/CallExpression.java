@@ -1,16 +1,16 @@
 package net.ziyoung.ccool.ast.expression;
 
 import net.ziyoung.ccool.ast.AstVisitor;
-import net.ziyoung.ccool.type.Type;
+import org.antlr.v4.runtime.Token;
 
 import java.util.List;
 
-public class CallExpression implements Expression {
+public class CallExpression extends Expression {
     private final Expression lhs;
     private final List<Expression> arguments;
-    private Type type;
 
-    public CallExpression(Expression lhs, List<Expression> arguments) {
+    public CallExpression(Token token, Expression lhs, List<Expression> arguments) {
+        super(token);
         this.lhs = lhs;
         this.arguments = arguments;
     }
@@ -21,15 +21,6 @@ public class CallExpression implements Expression {
 
     public List<Expression> getArguments() {
         return arguments;
-    }
-
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     @Override

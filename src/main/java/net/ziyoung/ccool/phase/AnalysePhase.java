@@ -9,12 +9,14 @@ import net.ziyoung.ccool.error.SemanticErrors;
 import net.ziyoung.ccool.phase.visitor.ExpressionTypeResolver;
 import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.type.TypeName;
+import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
 
 // AnalysePhase just visits statements.
 public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     private final ExpressionTypeResolver typeResolver;
     private ClassContext classContext;
+    private int stackSize;
     private int localsSize;
 
     public AnalysePhase() {
@@ -45,9 +47,14 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     @Override
     public Void visitMethodDeclaration(MethodDeclaration node, Context context) {
         MethodContext methodContext = node.getContext();
-        // Reset local variables size.
-        restoreLocalsSize(methodContext.getOffset());
+        // Reset stack size and local variables size.
+        restoreStackSize();
+        restoreLocalsSize(methodContext.getOffset() + 1);
+
         visitBlockStatement(node.getBody(), methodContext);
+
+        // After traverse, update method's stack size and local variables size.
+        methodContext.setStackSize(stackSize);
         methodContext.setLocalsSize(localsSize);
         return null;
     }
@@ -67,11 +74,14 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
                 SemanticErrors.errorUnmatchedType(typeNameToken, type, type1);
             }
         }
+
         Token token = node.getToken();
-        int offset = ((LocalContext) context).nextOffset();
-        VariableDefinition variableDefinition = new VariableDefinition(type, offset);
-        // Update local variables size.
+        int offset = ((LocalContext) context).nextOffset(type);
+        // Update stack size and local variables size.
+        setStackSize(Types.getTypeSize(type) + 1);
         setLocalsSize(offset + 1);
+
+        VariableDefinition variableDefinition = new VariableDefinition(type, offset);
         context.define(token, variableDefinition);
         return null;
     }
@@ -93,12 +103,22 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
         return null;
     }
 
-    private void setLocalsSize(int size) {
-        if (size > localsSize) {
-            localsSize = size;
+    // getStackSize is only used for testing.
+    public int getStackSize() {
+        return stackSize;
+    }
+
+    private void restoreStackSize() {
+        stackSize = 2;
+    }
+
+    private void setStackSize(int size) {
+        if (size > stackSize) {
+            stackSize = size;
         }
     }
 
+    // getLocalsSize is only used for testing.
     public int getLocalsSize() {
         return localsSize;
     }
@@ -106,4 +126,11 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
     private void restoreLocalsSize(int size) {
         localsSize = size;
     }
+
+    private void setLocalsSize(int size) {
+        if (size > localsSize) {
+            localsSize = size;
+        }
+    }
+
 }

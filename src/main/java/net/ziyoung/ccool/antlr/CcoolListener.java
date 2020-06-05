@@ -108,6 +108,18 @@ public interface CcoolListener extends ParseTreeListener {
 	 */
 	void exitStatement(CcoolParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdd(CcoolParser.AddContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdd(CcoolParser.AddContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Call}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
@@ -119,6 +131,30 @@ public interface CcoolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCall(CcoolParser.CallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Group}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterGroup(CcoolParser.GroupContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Group}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitGroup(CcoolParser.GroupContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Negative}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegative(CcoolParser.NegativeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Negative}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegative(CcoolParser.NegativeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Liter}
 	 * labeled alternative in {@link CcoolParser#expression}.
@@ -144,17 +180,53 @@ public interface CcoolListener extends ParseTreeListener {
 	 */
 	void exitVar(CcoolParser.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Parens}
+	 * Enter a parse tree produced by the {@code Multiply}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterParens(CcoolParser.ParensContext ctx);
+	void enterMultiply(CcoolParser.MultiplyContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Parens}
+	 * Exit a parse tree produced by the {@code Multiply}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitParens(CcoolParser.ParensContext ctx);
+	void exitMultiply(CcoolParser.MultiplyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign(CcoolParser.AssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign(CcoolParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Division}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivision(CcoolParser.DivisionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Division}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivision(CcoolParser.DivisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMinus(CcoolParser.MinusContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Minus}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMinus(CcoolParser.MinusContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CcoolParser#expressionList}.
 	 * @param ctx the parse tree

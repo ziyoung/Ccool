@@ -4,15 +4,9 @@ import net.ziyoung.ccool.ast.AstVisitor;
 import net.ziyoung.ccool.ast.expression.Expression;
 import org.antlr.v4.runtime.Token;
 
-public abstract class Literal implements Expression {
-    private final Token token;
-
+public abstract class Literal extends Expression {
     public Literal(Token token) {
-        this.token = token;
-    }
-
-    public Token getToken() {
-        return token;
+        super(token);
     }
 
     @Override
