@@ -54,9 +54,15 @@ statement
 
 expression
     : ID '(' expressionList? ')'    # Call
+    | '-' expression                # Negative
+    | expression '*' expression     # Multiply
+    | expression '/' expression     # Division
+    | expression '+' expression     # Add
+    | expression '-' expression     # Minus
+    | '(' expression ')'            # Group
+    | ID '=' expression             # Assign
     | literal                       # Liter
     | ID                            # Var
-    | '(' expression ')'            # Parens
     ;
 
 expressionList

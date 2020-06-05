@@ -1,6 +1,10 @@
 package net.ziyoung.ccool.ast;
 
 import net.ziyoung.ccool.ast.expression.*;
+import net.ziyoung.ccool.ast.expression.arithmetic.AddExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.DivisionExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.MinusExpression;
+import net.ziyoung.ccool.ast.expression.arithmetic.MultiplyExpression;
 import net.ziyoung.ccool.ast.expression.literal.*;
 import net.ziyoung.ccool.ast.statement.*;
 
@@ -14,7 +18,7 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
         } else if (node instanceof VariableDeclaration) {
             return visitVariableDeclaration((VariableDeclaration) node, context);
         }
-        return null;
+        return fallback(node);
     }
 
     @Override
@@ -27,8 +31,12 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
             return visitVariableExpression((VariableExpression) node, context);
         } else if (node instanceof Literal) {
             return visitLiteral((Literal) node, context);
+        } else if (node instanceof UnaryExpression) {
+            return visitUnaryExpression((UnaryExpression) node, context);
+        } else if (node instanceof BinaryExpression) {
+            return visitBinaryExpression((BinaryExpression) node, context);
         }
-        return null;
+        return fallback(node);
     }
 
     @Override
@@ -44,7 +52,31 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
         } else if (node instanceof NullLiteral) {
             return visitNullLiteral((NullLiteral) node, context);
         }
-        return null;
+        return fallback(node);
+    }
+
+    @Override
+    public R visitUnaryExpression(UnaryExpression node, C context) {
+        if (node instanceof GroupExpression) {
+            return visitGroupExpression((GroupExpression) node, context);
+        } else if (node instanceof NegativeExpression) {
+            return visitNegativeExpression((NegativeExpression) node, context);
+        }
+        return fallback(node);
+    }
+
+    @Override
+    public R visitBinaryExpression(BinaryExpression node, C context) {
+        if (node instanceof MultiplyExpression) {
+            return visitMultiplyExpression((MultiplyExpression) node, context);
+        } else if (node instanceof DivisionExpression) {
+            return visitDivisionExpression((DivisionExpression) node, context);
+        } else if (node instanceof AddExpression) {
+            return visitAddExpression((AddExpression) node, context);
+        } else if (node instanceof MinusExpression) {
+            return visitMinusExpression((MinusExpression) node, context);
+        }
+        return fallback(node);
     }
 
     @Override
@@ -84,6 +116,36 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitCallExpression(CallExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitNegativeExpression(NegativeExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitMultiplyExpression(MultiplyExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitDivisionExpression(DivisionExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitAddExpression(AddExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitMinusExpression(MinusExpression node, C context) {
+        return null;
+    }
+
+    @Override
+    public R visitGroupExpression(GroupExpression node, C context) {
         return null;
     }
 
@@ -128,5 +190,9 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
     @Override
     public R visitCompilationUnit(CompilationUnit node, C context) {
         return null;
+    }
+
+    private R fallback(Node node) {
+        throw new RuntimeException(String.format("unknown node %s", node));
     }
 }

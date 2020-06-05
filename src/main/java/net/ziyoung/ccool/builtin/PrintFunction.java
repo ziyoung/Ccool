@@ -52,7 +52,7 @@ public class PrintFunction extends MethodDefinition implements BuiltinFunction {
     @Override
     public MethodVisitor generate(MethodVisitor visitor, ExpressionGenerator generator, List<Expression> arguments) {
         visitor.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-        String descriptor = "";
+        String descriptor;
         if (arguments.size() == 0) {
             descriptor = "()V";
         } else {

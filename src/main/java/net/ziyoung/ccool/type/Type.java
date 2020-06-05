@@ -50,6 +50,11 @@ public class Type {
         return index == Types.tVoid;
     }
 
+    public int getSlotSize() {
+        // In jvm, double or long occupies two slots.
+        return isDouble() ? 2 : 1;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

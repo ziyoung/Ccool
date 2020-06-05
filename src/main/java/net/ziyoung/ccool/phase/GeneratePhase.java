@@ -61,10 +61,10 @@ public class GeneratePhase extends AstBaseVisitor<Void, ClassWriter> {
         StatementGenerator statementGenerator = new StatementGenerator();
         statementGenerator.visitBlockStatement(node.getBody(), methodVisitor);
 
+        // FIXME: support return statement.
         methodVisitor.visitInsn(RETURN);
         // We also can use ClassWriter.COMPUTE_MAXS, see https://asm.ow2.io/javadoc/org/objectweb/asm/ClassWriter.html#COMPUTE_MAXS
-        // TODO: compute stack size.
-        methodVisitor.visitMaxs(2, methodContext.getLocalsSize());
+        methodVisitor.visitMaxs(methodContext.getStackSize(), methodContext.getLocalsSize());
         // Don't forget to call visitEnd.
         methodVisitor.visitEnd();
         return null;

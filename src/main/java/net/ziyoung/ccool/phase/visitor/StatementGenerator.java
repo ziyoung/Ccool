@@ -4,17 +4,20 @@ import net.ziyoung.ccool.ast.AstBaseVisitor;
 import net.ziyoung.ccool.ast.expression.CallExpression;
 import net.ziyoung.ccool.ast.expression.Expression;
 import net.ziyoung.ccool.ast.expression.VariableExpression;
-import net.ziyoung.ccool.ast.statement.*;
+import net.ziyoung.ccool.ast.statement.BlockStatement;
+import net.ziyoung.ccool.ast.statement.Statement;
+import net.ziyoung.ccool.ast.statement.VariableDeclaration;
 import net.ziyoung.ccool.builtin.BuiltinFunction;
-import net.ziyoung.ccool.context.*;
+import net.ziyoung.ccool.context.LocalContext;
+import net.ziyoung.ccool.context.MethodDefinition;
+import net.ziyoung.ccool.context.VariableDefinition;
 import net.ziyoung.ccool.type.Type;
-import net.ziyoung.ccool.type.Types;
 import org.antlr.v4.runtime.Token;
 import org.objectweb.asm.MethodVisitor;
 
-import static org.objectweb.asm.Opcodes.*;
-
 import java.util.List;
+
+import static org.objectweb.asm.Opcodes.*;
 
 
 // TODO: add label for statement.
@@ -46,11 +49,17 @@ public class StatementGenerator extends AstBaseVisitor<Void, MethodVisitor> {
         VariableDefinition variableDefinition = (VariableDefinition) localContext.resolve(name);
         int offset = variableDefinition.getOffset();
         Type type = variableDefinition.getType();
-        if (Types.isIntType(type)) {
-            methodVisitor.visitVarInsn(ISTORE, offset);
-        } else if (Types.isStringType(type)) {
-            methodVisitor.visitVarInsn(ASTORE, offset);
+        int opcode;
+        if (type.isBool() || type.isInt()) {
+            opcode = ISTORE;
+        } else if (type.isDouble()) {
+            opcode = DSTORE;
+        } else if (type.isString()) {
+            opcode = ASTORE;
+        } else {
+            throw new RuntimeException(String.format("unknown type %s", type));
         }
+        methodVisitor.visitVarInsn(opcode, offset);
         return null;
     }
 

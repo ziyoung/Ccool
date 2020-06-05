@@ -1,6 +1,8 @@
 package net.ziyoung.ccool.context;
 
 import net.ziyoung.ccool.ast.statement.Statement;
+import net.ziyoung.ccool.type.Type;
+import net.ziyoung.ccool.type.Types;
 
 public class LocalContext extends Context {
     // index of local variable in stack.
@@ -23,8 +25,10 @@ public class LocalContext extends Context {
         return offset;
     }
 
-    public int nextOffset() {
-        return offset++;
+    public int nextOffset(Type type) {
+        int i = offset;
+        offset += Types.getTypeSize(type);
+        return i;
     }
 
     @Override

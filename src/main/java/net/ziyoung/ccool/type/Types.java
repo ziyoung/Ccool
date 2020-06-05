@@ -26,7 +26,7 @@ public class Types {
 
     private static final Map<Integer, String> typeDescriptorMap = Map.of(
             tUser, "Ljava/lang/Object;",
-            tBool, "B",
+            tBool, "Z",
             tInt, "I",
             tDouble, "D",
             tString, "Ljava/lang/String;",
@@ -53,15 +53,8 @@ public class Types {
         throw new RuntimeException(String.format("unsupported type %s", type.getName()));
     }
 
-    public static boolean isInvalidType(Type type) {
-        return _invalid.equals(type);
-    }
-
-    public static boolean isIntType(Type type) {
-        return _int.equals(type);
-    }
-
-    public static boolean isStringType(Type type) {
-        return _string.equals(type);
+    public static int getTypeSize(Type type) {
+        // In pre-analyse and analyse phase, type can be null.
+        return type == null ? 1 : type.getSlotSize();
     }
 }
