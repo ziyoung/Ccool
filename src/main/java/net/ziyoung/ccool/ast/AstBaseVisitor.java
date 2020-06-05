@@ -18,7 +18,7 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
         } else if (node instanceof VariableDeclaration) {
             return visitVariableDeclaration((VariableDeclaration) node, context);
         }
-        return null;
+        return fallback(node);
     }
 
     @Override
@@ -31,8 +31,12 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
             return visitVariableExpression((VariableExpression) node, context);
         } else if (node instanceof Literal) {
             return visitLiteral((Literal) node, context);
+        } else if (node instanceof UnaryExpression) {
+            return visitUnaryExpression((UnaryExpression) node, context);
+        } else if (node instanceof BinaryExpression) {
+            return visitBinaryExpression((BinaryExpression) node, context);
         }
-        return null;
+        return fallback(node);
     }
 
     @Override
@@ -48,7 +52,31 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
         } else if (node instanceof NullLiteral) {
             return visitNullLiteral((NullLiteral) node, context);
         }
-        return null;
+        return fallback(node);
+    }
+
+    @Override
+    public R visitUnaryExpression(UnaryExpression node, C context) {
+        if (node instanceof GroupExpression) {
+            return visitGroupExpression((GroupExpression) node, context);
+        } else if (node instanceof NegativeExpression) {
+            return visitNegativeExpression((NegativeExpression) node, context);
+        }
+        return fallback(node);
+    }
+
+    @Override
+    public R visitBinaryExpression(BinaryExpression node, C context) {
+        if (node instanceof MultiplyExpression) {
+            return visitMultiplyExpression((MultiplyExpression) node, context);
+        } else if (node instanceof DivisionExpression) {
+            return visitDivisionExpression((DivisionExpression) node, context);
+        } else if (node instanceof AddExpression) {
+            return visitAddExpression((AddExpression) node, context);
+        } else if (node instanceof MinusExpression) {
+            return visitMinusExpression((MinusExpression) node, context);
+        }
+        return fallback(node);
     }
 
     @Override
@@ -162,5 +190,9 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
     @Override
     public R visitCompilationUnit(CompilationUnit node, C context) {
         return null;
+    }
+
+    private R fallback(Node node) {
+        throw new RuntimeException(String.format("unknown node %s", node));
     }
 }

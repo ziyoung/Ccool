@@ -21,9 +21,8 @@ public interface AstVisitor<R, C> {
         return visitNode(node, context);
     }
 
-    default R visitLiteral(Literal node, C context) {
-        return visitExpression(node, context);
-    }
+    // Literal expressions start.
+    R visitLiteral(Literal node, C context);
 
     R visitBoolLiteral(BoolLiteral node, C context);
 
@@ -34,14 +33,18 @@ public interface AstVisitor<R, C> {
     R visitStringLiteral(StringLiteral node, C context);
 
     R visitNullLiteral(NullLiteral node, C context);
+    // Literal expressions end.
 
-    R visitVariableExpression(VariableExpression node, C context);
+    // Unary expressions start.
+    R visitUnaryExpression(UnaryExpression node, C context);
 
-    R visitParameter(Parameter node, C context);
-
-    R visitCallExpression(CallExpression node, C context);
+    R visitGroupExpression(GroupExpression node, C context);
 
     R visitNegativeExpression(NegativeExpression node, C context);
+    // Unary expressions end.
+
+    // Binary expressions start.
+    R visitBinaryExpression(BinaryExpression node, C context);
 
     R visitMultiplyExpression(MultiplyExpression node, C context);
 
@@ -51,9 +54,14 @@ public interface AstVisitor<R, C> {
 
     R visitMinusExpression(MinusExpression node, C context);
 
-    R visitGroupExpression(GroupExpression node, C context);
-
     R visitAssignExpression(AssignExpression node, C context);
+    // Binary expressions end.
+
+    R visitVariableExpression(VariableExpression node, C context);
+
+    R visitParameter(Parameter node, C context);
+
+    R visitCallExpression(CallExpression node, C context);
 
     R visitExpressionStatement(ExpressionStatement node, C context);
 
