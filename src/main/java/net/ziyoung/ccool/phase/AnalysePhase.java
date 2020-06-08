@@ -6,7 +6,7 @@ import net.ziyoung.ccool.ast.expression.Expression;
 import net.ziyoung.ccool.ast.statement.*;
 import net.ziyoung.ccool.context.*;
 import net.ziyoung.ccool.error.SemanticErrors;
-import net.ziyoung.ccool.phase.visitor.ExpressionTypeResolver;
+import net.ziyoung.ccool.phase.visitor.ExpressionResolver;
 import net.ziyoung.ccool.type.Type;
 import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
@@ -14,13 +14,13 @@ import org.antlr.v4.runtime.Token;
 
 // AnalysePhase just visits statements.
 public class AnalysePhase extends AstBaseVisitor<Void, Context> {
-    private final ExpressionTypeResolver typeResolver;
+    private final ExpressionResolver typeResolver;
     private ClassContext classContext;
     private int stackSize;
     private int localsSize;
 
     public AnalysePhase() {
-        typeResolver = new ExpressionTypeResolver();
+        typeResolver = new ExpressionResolver();
     }
 
     @Override
@@ -69,9 +69,9 @@ public class AnalysePhase extends AstBaseVisitor<Void, Context> {
         }
         Expression expression = node.getExpression();
         if (expression != null) {
-            Type type1 = typeResolver.visitExpression(node.getExpression(), context);
-            if (type != null && type1 != null && !type.equals(type1)) {
-                SemanticErrors.errorUnmatchedType(typeNameToken, type, type1);
+            Type rightType = typeResolver.visitExpression(node.getExpression(), context);
+            if (type != null && rightType != null && !type.equals(rightType)) {
+                SemanticErrors.errorUnmatchedType(typeNameToken, rightType, type);
             }
         }
 

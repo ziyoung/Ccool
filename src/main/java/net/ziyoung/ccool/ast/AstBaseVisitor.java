@@ -23,9 +23,7 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
 
     @Override
     public R visitExpression(Expression node, C context) {
-        if (node instanceof AssignExpression) {
-            return visitAssignExpression((AssignExpression) node, context);
-        } else if (node instanceof CallExpression) {
+        if (node instanceof CallExpression) {
             return visitCallExpression((CallExpression) node, context);
         } else if (node instanceof VariableExpression) {
             return visitVariableExpression((VariableExpression) node, context);
