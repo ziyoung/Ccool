@@ -192,18 +192,6 @@ public interface CcoolListener extends ParseTreeListener {
 	 */
 	void exitMultiply(CcoolParser.MultiplyContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link CcoolParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssign(CcoolParser.AssignContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link CcoolParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssign(CcoolParser.AssignContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Division}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
@@ -215,6 +203,18 @@ public interface CcoolListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDivision(CcoolParser.DivisionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign(CcoolParser.AssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign(CcoolParser.AssignContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Minus}
 	 * labeled alternative in {@link CcoolParser#expression}.

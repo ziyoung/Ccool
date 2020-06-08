@@ -136,14 +136,14 @@ public class CcoolBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssign(CcoolParser.AssignContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDivision(CcoolParser.DivisionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDivision(CcoolParser.DivisionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAssign(CcoolParser.AssignContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

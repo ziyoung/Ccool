@@ -157,8 +157,8 @@ public abstract class AstBaseVisitor<R, C> implements AstVisitor<R, C> {
     @Override
     public R visitExpressionStatement(ExpressionStatement node, C context) {
         Expression expression = node.getExpression();
-        // We can ignore this statement.
-        if (expression instanceof VariableExpression) {
+        // We can ignore these statements.
+        if (expression instanceof VariableExpression || expression instanceof Literal) {
             return null;
         }
         return visitExpression(expression, context);

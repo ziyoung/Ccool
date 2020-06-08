@@ -4,20 +4,24 @@ import net.ziyoung.ccool.antlr.CcoolBaseVisitor;
 import net.ziyoung.ccool.antlr.CcoolParser;
 import net.ziyoung.ccool.ast.CompilationUnit;
 import net.ziyoung.ccool.ast.Node;
-import net.ziyoung.ccool.ast.expression.CallExpression;
-import net.ziyoung.ccool.ast.expression.Expression;
-import net.ziyoung.ccool.ast.expression.Parameter;
-import net.ziyoung.ccool.ast.expression.VariableExpression;
+import net.ziyoung.ccool.ast.expression.*;
 import net.ziyoung.ccool.ast.expression.literal.*;
 import net.ziyoung.ccool.ast.statement.*;
 import net.ziyoung.ccool.type.TypeName;
 import net.ziyoung.ccool.type.Types;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AstBuilder extends CcoolBaseVisitor<Node> {
+    private final ExpressionFactory factory;
+
+    public AstBuilder() {
+        this.factory = new ExpressionFactory(this);
+    }
+
     @Override
     public CompilationUnit visitCompilationUnit(CcoolParser.CompilationUnitContext ctx) {
         List<ClassDeclaration> declarations = new ArrayList<>();
@@ -56,13 +60,12 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
         List<Parameter> parameters = new ArrayList<>();
         CcoolParser.FormalParametersContext parametersContext = ctx.formalParameters();
         if (parametersContext != null) {
-            int index = 0;
-            for (CcoolParser.TypeContext typeContext : parametersContext.type()) {
+            for (int index = 0; index < parametersContext.type().size(); index++) {
+                CcoolParser.TypeContext typeContext = parametersContext.type(index);
                 TypeName typeName1 = Types.typeContextToTypeName(typeContext);
                 Token token1 = parametersContext.ID(index).getSymbol();
                 Parameter parameter = new Parameter(token1, typeName1);
                 parameters.add(parameter);
-                index++;
             }
         }
         BlockStatement blockStatement = visitBlock(ctx.block());
@@ -89,7 +92,8 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
             Expression expression = (Expression) visit(ctx.expression());
             return new ExpressionStatement(expression);
         }
-        throw new RuntimeException(String.format("Invalid statement %s", ctx));
+        fallback(ctx);
+        return null;
     }
 
     @Override
@@ -121,6 +125,46 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
     }
 
     @Override
+    public BinaryExpression visitMultiply(CcoolParser.MultiplyContext ctx) {
+        return factory.getBinaryExpression(ctx.start, ctx.expression(0), ctx.expression(1), "*");
+    }
+
+    @Override
+    public BinaryExpression visitDivision(CcoolParser.DivisionContext ctx) {
+        return factory.getBinaryExpression(ctx.start, ctx.expression(0), ctx.expression(1), "/");
+    }
+
+    @Override
+    public BinaryExpression visitAdd(CcoolParser.AddContext ctx) {
+        return factory.getBinaryExpression(ctx.start, ctx.expression(0), ctx.expression(1), "+");
+    }
+
+    @Override
+    public BinaryExpression visitMinus(CcoolParser.MinusContext ctx) {
+        return factory.getBinaryExpression(ctx.start, ctx.expression(0), ctx.expression(1), "-");
+    }
+
+    @Override
+    public BinaryExpression visitAssign(CcoolParser.AssignContext ctx) {
+        return factory.getBinaryExpression(ctx.start, ctx.expression(0), ctx.expression(1), "=");
+    }
+
+    @Override
+    public UnaryExpression visitNegative(CcoolParser.NegativeContext ctx) {
+        return factory.getUnaryExpression(ctx.start, ctx.expression(), "-");
+    }
+
+    @Override
+    public UnaryExpression visitGroup(CcoolParser.GroupContext ctx) {
+        return factory.getUnaryExpression(ctx.start, ctx.expression(), "()");
+    }
+
+    @Override
+    public VariableExpression visitVar(CcoolParser.VarContext ctx) {
+        return new VariableExpression(ctx.ID().getSymbol());
+    }
+
+    @Override
     public Literal visitLiteral(CcoolParser.LiteralContext ctx) {
         if (ctx.BOOL() != null) {
             return new BoolLiteral(ctx.BOOL().getSymbol());
@@ -133,11 +177,11 @@ public class AstBuilder extends CcoolBaseVisitor<Node> {
         } else if (ctx.NULL() != null) {
             return new NullLiteral(ctx.NULL().getSymbol());
         }
-        throw new RuntimeException(String.format("Unknown literal %s", ctx.getText()));
+        fallback(ctx);
+        return null;
     }
 
-    @Override
-    public VariableExpression visitVar(CcoolParser.VarContext ctx) {
-        return new VariableExpression(ctx.ID().getSymbol());
+    private void fallback(ParserRuleContext context) {
+        throw new RuntimeException(String.format("Unknown literal %s", context.getText()));
     }
 }

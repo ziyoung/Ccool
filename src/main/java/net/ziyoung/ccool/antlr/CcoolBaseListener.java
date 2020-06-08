@@ -220,18 +220,6 @@ public class CcoolBaseListener implements CcoolListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign(CcoolParser.AssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign(CcoolParser.AssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDivision(CcoolParser.DivisionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -239,6 +227,18 @@ public class CcoolBaseListener implements CcoolListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDivision(CcoolParser.DivisionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssign(CcoolParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssign(CcoolParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

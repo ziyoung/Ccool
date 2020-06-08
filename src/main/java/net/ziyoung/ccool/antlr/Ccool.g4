@@ -60,7 +60,7 @@ expression
     | expression '+' expression     # Add
     | expression '-' expression     # Minus
     | '(' expression ')'            # Group
-    | ID '=' expression             # Assign
+    | expression '=' expression     # Assign
     | literal                       # Liter
     | ID                            # Var
     ;
