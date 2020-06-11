@@ -11,6 +11,7 @@ import org.antlr.v4.runtime.Token;
 public abstract class Expression implements Node {
     private final Token token;
     private Type type;
+    private Type promoteType;
 
     public Expression(Token token) {
         this.token = token;
@@ -26,5 +27,13 @@ public abstract class Expression implements Node {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Type getPromoteType() {
+        return promoteType;
+    }
+
+    public void setPromoteType(Type promoteType) {
+        this.promoteType = promoteType;
     }
 }

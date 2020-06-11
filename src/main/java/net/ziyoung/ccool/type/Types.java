@@ -33,6 +33,24 @@ public class Types {
             tVoid, "V"
     );
 
+    public static final Type[][] arithmeticResultTypes = new Type[][]{
+            /*          class   bool   int   double void    */
+            /*class*/   {_void, _void, _void, _void, _void},
+            /*bool*/    {_void, _void, _void, _void, _void},
+            /*int*/     {_void, _void, _int, _double, _void},
+            /*double*/  {_void, _void, _double, _double, _void},
+            /*void*/    {_void, _void, _int, _double, _void},
+    };
+
+    public static final Type[][] promoteTypes = new Type[][]{
+            /*          class  bool  int  double void */
+            /*class*/   {null, null, null, null, null},
+            /*bool*/    {null, null, null, null, null},
+            /*int*/     {null, null, null, _double, null},
+            /*double*/  {null, null, null, null, null},
+            /*void*/    {null, null, null, null, null},
+    };
+
     public static PrimaryType[] getPrimaryTypes() {
         return primaryTypes;
     }
