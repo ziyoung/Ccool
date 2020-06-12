@@ -890,26 +890,6 @@ public class CcoolParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class AssignContext extends ExpressionContext {
-		public TerminalNode ID() { return getToken(CcoolParser.ID, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public AssignContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterAssign(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitAssign(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitAssign(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class DivisionContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -929,6 +909,28 @@ public class CcoolParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitDivision(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AssignContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public AssignContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).enterAssign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CcoolListener ) ((CcoolListener)listener).exitAssign(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CcoolVisitor ) return ((CcoolVisitor<? extends T>)visitor).visitAssign(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -971,7 +973,7 @@ public class CcoolParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
+			setState(112);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
@@ -1024,32 +1026,19 @@ public class CcoolParser extends Parser {
 				break;
 			case 4:
 				{
-				_localctx = new AssignContext(_localctx);
+				_localctx = new LiterContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(110);
-				match(ID);
-				setState(111);
-				match(T__12);
-				setState(112);
-				expression(3);
+				literal();
 				}
 				break;
 			case 5:
 				{
-				_localctx = new LiterContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(113);
-				literal();
-				}
-				break;
-			case 6:
-				{
 				_localctx = new VarContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(114);
+				setState(111);
 				match(ID);
 				}
 				break;
@@ -1070,11 +1059,11 @@ public class CcoolParser extends Parser {
 						{
 						_localctx = new MultiplyContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(117);
+						setState(114);
 						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(118);
+						setState(115);
 						match(T__15);
-						setState(119);
+						setState(116);
 						expression(9);
 						}
 						break;
@@ -1082,11 +1071,11 @@ public class CcoolParser extends Parser {
 						{
 						_localctx = new DivisionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(120);
+						setState(117);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(121);
+						setState(118);
 						match(T__16);
-						setState(122);
+						setState(119);
 						expression(8);
 						}
 						break;
@@ -1094,11 +1083,11 @@ public class CcoolParser extends Parser {
 						{
 						_localctx = new AddContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(123);
+						setState(120);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(124);
+						setState(121);
 						match(T__17);
-						setState(125);
+						setState(122);
 						expression(7);
 						}
 						break;
@@ -1106,12 +1095,24 @@ public class CcoolParser extends Parser {
 						{
 						_localctx = new MinusContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(126);
+						setState(123);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(127);
+						setState(124);
 						match(T__14);
-						setState(128);
+						setState(125);
 						expression(6);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new AssignContext(new ExpressionContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expression);
+						setState(126);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(127);
+						match(T__12);
+						setState(128);
+						expression(4);
 						}
 						break;
 					}
@@ -1270,6 +1271,8 @@ public class CcoolParser extends Parser {
 			return precpred(_ctx, 6);
 		case 3:
 			return precpred(_ctx, 5);
+		case 4:
+			return precpred(_ctx, 3);
 		}
 		return true;
 	}
@@ -1282,13 +1285,13 @@ public class CcoolParser extends Parser {
 		"\n\5\3\6\3\6\3\6\3\6\5\6:\n\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\7\7"+
 		"E\n\7\f\7\16\7H\13\7\3\b\3\b\3\t\3\t\7\tN\n\t\f\t\16\tQ\13\t\3\t\3\t\3"+
 		"\n\3\n\3\n\3\n\5\nY\n\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\5\13b\n\13\3"+
-		"\f\3\f\3\f\3\f\5\fh\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3"+
-		"\f\5\fv\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\7\f\u0084"+
-		"\n\f\f\f\16\f\u0087\13\f\3\r\3\r\3\r\7\r\u008c\n\r\f\r\16\r\u008f\13\r"+
-		"\3\16\3\16\3\16\2\3\26\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\4\2\n\16"+
+		"\f\3\f\3\f\3\f\5\fh\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\fs\n\f\3"+
+		"\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\7\f\u0084\n"+
+		"\f\f\f\16\f\u0087\13\f\3\r\3\r\3\r\7\r\u008c\n\r\f\r\16\r\u008f\13\r\3"+
+		"\16\3\16\3\16\2\3\26\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\4\2\n\16"+
 		"\33\33\3\2\25\31\2\u009a\2\35\3\2\2\2\4!\3\2\2\2\6.\3\2\2\2\b\63\3\2\2"+
 		"\2\n\65\3\2\2\2\f>\3\2\2\2\16I\3\2\2\2\20K\3\2\2\2\22T\3\2\2\2\24a\3\2"+
-		"\2\2\26u\3\2\2\2\30\u0088\3\2\2\2\32\u0090\3\2\2\2\34\36\5\4\3\2\35\34"+
+		"\2\2\26r\3\2\2\2\30\u0088\3\2\2\2\32\u0090\3\2\2\2\34\36\5\4\3\2\35\34"+
 		"\3\2\2\2\36\37\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 \3\3\2\2\2!\"\7\3\2\2"+
 		"\"$\7\32\2\2#%\5\6\4\2$#\3\2\2\2$%\3\2\2\2%&\3\2\2\2&(\7\4\2\2\')\5\b"+
 		"\5\2(\'\3\2\2\2)*\3\2\2\2*(\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\5\2\2-\5\3"+
@@ -1302,19 +1305,19 @@ public class CcoolParser extends Parser {
 		"\b\2UX\7\33\2\2VW\7\17\2\2WY\5\26\f\2XV\3\2\2\2XY\3\2\2\2YZ\3\2\2\2Z["+
 		"\7\20\2\2[\23\3\2\2\2\\b\5\20\t\2]b\5\22\n\2^_\5\26\f\2_`\7\20\2\2`b\3"+
 		"\2\2\2a\\\3\2\2\2a]\3\2\2\2a^\3\2\2\2b\25\3\2\2\2cd\b\f\1\2de\7\33\2\2"+
-		"eg\7\7\2\2fh\5\30\r\2gf\3\2\2\2gh\3\2\2\2hi\3\2\2\2iv\7\b\2\2jk\7\21\2"+
-		"\2kv\5\26\f\13lm\7\7\2\2mn\5\26\f\2no\7\b\2\2ov\3\2\2\2pq\7\33\2\2qr\7"+
-		"\17\2\2rv\5\26\f\5sv\5\32\16\2tv\7\33\2\2uc\3\2\2\2uj\3\2\2\2ul\3\2\2"+
-		"\2up\3\2\2\2us\3\2\2\2ut\3\2\2\2v\u0085\3\2\2\2wx\f\n\2\2xy\7\22\2\2y"+
-		"\u0084\5\26\f\13z{\f\t\2\2{|\7\23\2\2|\u0084\5\26\f\n}~\f\b\2\2~\177\7"+
-		"\24\2\2\177\u0084\5\26\f\t\u0080\u0081\f\7\2\2\u0081\u0082\7\21\2\2\u0082"+
-		"\u0084\5\26\f\b\u0083w\3\2\2\2\u0083z\3\2\2\2\u0083}\3\2\2\2\u0083\u0080"+
-		"\3\2\2\2\u0084\u0087\3\2\2\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086"+
-		"\27\3\2\2\2\u0087\u0085\3\2\2\2\u0088\u008d\5\26\f\2\u0089\u008a\7\t\2"+
-		"\2\u008a\u008c\5\26\f\2\u008b\u0089\3\2\2\2\u008c\u008f\3\2\2\2\u008d"+
-		"\u008b\3\2\2\2\u008d\u008e\3\2\2\2\u008e\31\3\2\2\2\u008f\u008d\3\2\2"+
-		"\2\u0090\u0091\t\3\2\2\u0091\33\3\2\2\2\20\37$*\639FOXagu\u0083\u0085"+
-		"\u008d";
+		"eg\7\7\2\2fh\5\30\r\2gf\3\2\2\2gh\3\2\2\2hi\3\2\2\2is\7\b\2\2jk\7\21\2"+
+		"\2ks\5\26\f\13lm\7\7\2\2mn\5\26\f\2no\7\b\2\2os\3\2\2\2ps\5\32\16\2qs"+
+		"\7\33\2\2rc\3\2\2\2rj\3\2\2\2rl\3\2\2\2rp\3\2\2\2rq\3\2\2\2s\u0085\3\2"+
+		"\2\2tu\f\n\2\2uv\7\22\2\2v\u0084\5\26\f\13wx\f\t\2\2xy\7\23\2\2y\u0084"+
+		"\5\26\f\nz{\f\b\2\2{|\7\24\2\2|\u0084\5\26\f\t}~\f\7\2\2~\177\7\21\2\2"+
+		"\177\u0084\5\26\f\b\u0080\u0081\f\5\2\2\u0081\u0082\7\17\2\2\u0082\u0084"+
+		"\5\26\f\6\u0083t\3\2\2\2\u0083w\3\2\2\2\u0083z\3\2\2\2\u0083}\3\2\2\2"+
+		"\u0083\u0080\3\2\2\2\u0084\u0087\3\2\2\2\u0085\u0083\3\2\2\2\u0085\u0086"+
+		"\3\2\2\2\u0086\27\3\2\2\2\u0087\u0085\3\2\2\2\u0088\u008d\5\26\f\2\u0089"+
+		"\u008a\7\t\2\2\u008a\u008c\5\26\f\2\u008b\u0089\3\2\2\2\u008c\u008f\3"+
+		"\2\2\2\u008d\u008b\3\2\2\2\u008d\u008e\3\2\2\2\u008e\31\3\2\2\2\u008f"+
+		"\u008d\3\2\2\2\u0090\u0091\t\3\2\2\u0091\33\3\2\2\2\20\37$*\639FOXagr"+
+		"\u0083\u0085\u008d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

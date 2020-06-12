@@ -120,19 +120,19 @@ public interface CcoolVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMultiply(CcoolParser.MultiplyContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Assign}
-	 * labeled alternative in {@link CcoolParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssign(CcoolParser.AssignContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Division}
 	 * labeled alternative in {@link CcoolParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDivision(CcoolParser.DivisionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Assign}
+	 * labeled alternative in {@link CcoolParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(CcoolParser.AssignContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Minus}
 	 * labeled alternative in {@link CcoolParser#expression}.

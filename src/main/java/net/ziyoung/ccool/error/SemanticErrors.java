@@ -2,12 +2,17 @@ package net.ziyoung.ccool.error;
 
 import net.ziyoung.ccool.type.Type;
 import org.antlr.v4.runtime.Token;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class SemanticErrors {
+    private static final Logger logger = LoggerFactory.getLogger(SemanticErrors.class);
+
     private static List<SemanticError> errors = Collections.emptyList();
 
     public static void startRecord() {
@@ -16,7 +21,7 @@ public class SemanticErrors {
 
     public static void report() {
         for (SemanticError err : errors) {
-            System.err.println(err.toString());
+            logger.error(err.toString());
         }
     }
 
@@ -40,8 +45,12 @@ public class SemanticErrors {
         error(token, String.format("variable %s is not defined", token.getText()));
     }
 
-    public static void errorUnmatchedType(Token token, Type type, Type type1) {
-        error(token, String.format("type doesn't match. Expected %s but got %s", type.getName(), type1.getName()));
+    public static void errorUnmatchedType(Token token, Type curType, Type... expectedTypes) {
+        StringJoiner stringJoiner = new StringJoiner(" or ", "", "");
+        for (Type type : expectedTypes) {
+            stringJoiner.add(type.getName());
+        }
+        error(token, String.format("type doesn't match. Expected %s but got %s", stringJoiner, curType.getName()));
     }
 
     public static void errorUndefinedMethod(Token token) {
