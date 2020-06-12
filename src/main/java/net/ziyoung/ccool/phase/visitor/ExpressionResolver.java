@@ -3,16 +3,13 @@ package net.ziyoung.ccool.phase.visitor;
 import net.ziyoung.ccool.ast.AstBaseVisitor;
 import net.ziyoung.ccool.ast.expression.*;
 import net.ziyoung.ccool.ast.expression.arithmetic.AddExpression;
-import net.ziyoung.ccool.ast.expression.arithmetic.DivisionExpression;
-import net.ziyoung.ccool.ast.expression.arithmetic.MinusExpression;
-import net.ziyoung.ccool.ast.expression.arithmetic.MultiplyExpression;
 import net.ziyoung.ccool.ast.expression.literal.Literal;
 import net.ziyoung.ccool.context.Context;
 import net.ziyoung.ccool.context.Definition;
 import net.ziyoung.ccool.context.MethodDefinition;
 import net.ziyoung.ccool.error.SemanticErrors;
 import net.ziyoung.ccool.type.Type;
-import net.ziyoung.ccool.type.Types;
+import net.ziyoung.ccool.type.TypeChecker;
 import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
@@ -60,54 +57,71 @@ public class ExpressionResolver extends AstBaseVisitor<Type, Context> {
     // Unary expressions start.
     @Override
     public Type visitNegativeExpression(NegativeExpression node, Context context) {
-        Token token = node.getToken();
         Expression rhs = node.getRhs();
         Type type = visitExpression(rhs, context);
-        if (!(type != null && type.isBool())) {
-            SemanticErrors.errorUnmatchedType(token, type, Types._bool);
-        }
-        return Types._bool;
+        node.setType(type);
+        return TypeChecker.negativeOp(node);
     }
 
     @Override
     public Type visitGroupExpression(GroupExpression node, Context context) {
         Expression expression = node.getRhs();
-        return visitExpression(expression, context);
+        Type type = visitExpression(expression, context);
+        node.setType(type);
+        return type;
     }
     // Unary expressions end.
 
     // Binary expressions start.
     @Override
-    public Type visitMultiplyExpression(MultiplyExpression node, Context context) {
-        Token token = node.getToken();
-        Type lhsType = visitExpression(node.getLhs(), context);
-        Type rhsType = visitExpression(node.getRhs(), context);
-        if (!(rhsType != null && lhsType == rhsType)) {
-            SemanticErrors.errorUnmatchedType(token, lhsType, rhsType);
+    public Type visitBinaryExpression(BinaryExpression node, Context context) {
+        if (node instanceof AssignExpression) {
+            return visitAssignExpression((AssignExpression) node, context);
         }
-        return lhsType;
+        // TODO: support string concatenation.
+//        if (node instanceof AddExpression) {
+//            return visitAddExpression((AddExpression) node, context);
+//        }
+        return visitArithmeticExpression(node, context);
     }
 
-    @Override
-    public Type visitDivisionExpression(DivisionExpression node, Context context) {
-        return super.visitDivisionExpression(node, context);
+    private Type visitArithmeticExpression(BinaryExpression node, Context context) {
+        visitExpression(node.getLhs(), context);
+        visitExpression(node.getRhs(), context);
+        Type type = TypeChecker.binaryOp(node.getLhs(), node.getRhs());
+        node.setType(type);
+        return type;
     }
+
+//    @Override
+//    public Type visitMultiplyExpression(MultiplyExpression node, Context context) {
+//        visitExpression(node.getLhs(), context);
+//        visitExpression(node.getRhs(), context);
+//        Type type = TypeChecker.binaryOp(node.getLhs(), node.getRhs());
+//        node.setType(type);
+//        return type;
+//    }
+//
+//    @Override
+//    public Type visitDivisionExpression(DivisionExpression node, Context context) {
+//        return super.visitDivisionExpression(node, context);
+//    }
 
     @Override
     public Type visitAddExpression(AddExpression node, Context context) {
         return super.visitAddExpression(node, context);
     }
 
-    @Override
-    public Type visitMinusExpression(MinusExpression node, Context context) {
-        return super.visitMinusExpression(node, context);
-    }
+//    @Override
+//    public Type visitMinusExpression(MinusExpression node, Context context) {
+//        return super.visitMinusExpression(node, context);
+//    }
 
     @Override
     public Type visitAssignExpression(AssignExpression node, Context context) {
-        Type type = visitExpression(node.getRhs(), context);
-        node.setType(type);
-        return type;
+        visitExpression(node.getLhs(), context);
+        visitExpression(node.getRhs(), context);
+        return TypeChecker.assignOp(node.getLhs(), node.getRhs());
     }
     // Binary expressions end.
 

@@ -42,6 +42,10 @@ public class Type {
         return index == Types.tDouble;
     }
 
+    public boolean isNumber() {
+        return isInt() || isDouble();
+    }
+
     public boolean isString() {
         return index == Types.tString;
     }

@@ -34,21 +34,23 @@ public class Types {
     );
 
     public static final Type[][] arithmeticResultTypes = new Type[][]{
-            /*          class   bool   int   double void    */
-            /*class*/   {_void, _void, _void, _void, _void},
-            /*bool*/    {_void, _void, _void, _void, _void},
-            /*int*/     {_void, _void, _int, _double, _void},
-            /*double*/  {_void, _void, _double, _double, _void},
-            /*void*/    {_void, _void, _int, _double, _void},
+            /*          class   bool   int   double  string void    */
+            /*class*/   {_void, _void, _void, _void, _void, _void},
+            /*bool*/    {_void, _void, _void, _void, _void, _void},
+            /*int*/     {_void, _void, _int, _double, _string, _void},
+            /*double*/  {_void, _void, _double, _double, _string, _void},
+            /*string*/  {_void, _void, _string, _string, _string, _void},
+            /*void*/    {_void, _void, _void, _void, _void, _void},
     };
 
-    public static final Type[][] promoteTypes = new Type[][]{
-            /*          class  bool  int  double void */
-            /*class*/   {null, null, null, null, null},
-            /*bool*/    {null, null, null, null, null},
-            /*int*/     {null, null, null, _double, null},
-            /*double*/  {null, null, null, null, null},
-            /*void*/    {null, null, null, null, null},
+    public static final Type[][] promoteResultTypes = new Type[][]{
+            /*          class  bool  int  double string void */
+            /*class*/   {null, null, null, null, null, null},
+            /*bool*/    {null, null, null, null, null, null},
+            /*int*/     {null, null, null, _double, null, null},
+            /*double*/  {null, null, null, null, null, null},
+            /*string*/  {null, null, null, null, null, null},
+            /*void*/    {null, null, null, null, null, null},
     };
 
     public static PrimaryType[] getPrimaryTypes() {
